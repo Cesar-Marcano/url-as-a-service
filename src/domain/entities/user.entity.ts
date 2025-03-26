@@ -1,3 +1,5 @@
+import { UrlEntity } from './url.entity'
+
 export class UserEntity {
   constructor(
     public id: number,
@@ -6,5 +8,6 @@ export class UserEntity {
     public password: string,
     public createdAt: Date,
     public updatedAt: Date,
+    public urls: UrlEntity[],
   ) {}
 }
