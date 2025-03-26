@@ -1,20 +1,20 @@
-export enum SubscriptionSetting {
+export enum SubscriptionSettings {
   MAX_URLS = 'max_urls',
-  EXPIRATION_DAYS = 'expiration_days',
+  MAX_URL_EXPIRATION_DAYS = 'max_url_expiration_days',
 }
 
 export type SubscriptionSettingValues = {
-  [SubscriptionSetting.MAX_URLS]: number
-  [SubscriptionSetting.EXPIRATION_DAYS]: Date
+  [SubscriptionSettings.MAX_URLS]: number
+  [SubscriptionSettings.MAX_URL_EXPIRATION_DAYS]: number
 }
 
-export class SubscriptionSettingEntity<T extends SubscriptionSetting> {
+export class SubscriptionSettingsEntity<T extends SubscriptionSettings> {
   constructor(
-    public id: number,
-    public permission: T,
-    public value: SubscriptionSettingValues[T],
-    public description: string,
-    public createdAt: Date,
-    public updatedAt: Date,
+    public readonly id: number,
+    public readonly permission: T,
+    public readonly value: SubscriptionSettingValues[T],
+    public readonly description: string,
+    public readonly createdAt: Date,
+    public readonly updatedAt: Date,
   ) {}
 }

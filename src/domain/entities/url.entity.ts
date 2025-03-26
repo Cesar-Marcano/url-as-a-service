@@ -1,10 +1,13 @@
+import { UserEntity } from './user.entity'
+
 export class UrlEntity {
-    constructor(
-        public id: number,
-        public slug: string,
-        public originalUrl: string,
-        public createdAt: Date,
-        public updatedAt: Date,
-        public authorId: number
-    ) {}
+  constructor(
+    public readonly id: number,
+    public readonly slug: string,
+    public readonly originalUrl: string,
+    public readonly createdAt: Date,
+    public readonly updatedAt: Date,
+    public readonly author: UserEntity,
+    public readonly expirationDate: Date | null,
+  ) {}
 }
