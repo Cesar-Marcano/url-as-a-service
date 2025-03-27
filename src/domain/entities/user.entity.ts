@@ -1,20 +1,14 @@
 import { Email } from '@domain/value-objects/email.value-object'
-import { SubscriptionEntity } from './subscription.entity'
 import { UrlEntity } from './url.entity'
 import { Username } from '@domain/value-objects/username.value-object'
 import { Password } from '@domain/value-objects/password.value-object'
+import { SubscriptionHistoryEntity } from './subscription-history.entity'
 
 export enum UserType {
   ADMIN = 'admin',
   MODERATOR = 'moderator',
   USER = 'user',
   READONLY = 'readonly',
-}
-
-export enum SubscriptionType {
-  ANUAL = 'anual',
-  MONTHLY = 'monthly',
-  WEEKLY = 'weekly',
 }
 
 export class UserEntity {
@@ -26,11 +20,7 @@ export class UserEntity {
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
     public readonly urls: UrlEntity[],
-    public readonly subscription: SubscriptionEntity,
-    public readonly subscriptionType: SubscriptionType,
-    public readonly subscriptionRenewalDate: Date,
-    public readonly subscriptionCanceledAt: Date | null,
-    public readonly subscriptionAquiredAt: Date,
+    public readonly subscriptionHistory: SubscriptionHistoryEntity[],
     public readonly userType: UserType,
     public readonly isEmailConfirmed: boolean,
     public readonly is2FAEnabled: boolean,
