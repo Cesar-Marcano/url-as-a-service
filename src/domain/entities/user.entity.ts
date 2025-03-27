@@ -1,6 +1,13 @@
 import { SubscriptionEntity } from './subscription.entity'
 import { UrlEntity } from './url.entity'
 
+export enum UserType {
+  ADMIN = 'admin',
+  MODERATOR = 'moderator',
+  USER = 'user',
+  READONLY = 'readonly',
+}
+
 export class UserEntity {
   constructor(
     public readonly id: number,
@@ -11,5 +18,6 @@ export class UserEntity {
     public readonly updatedAt: Date,
     public readonly urls: UrlEntity[],
     public readonly subscription: SubscriptionEntity,
+    public readonly userType: UserType,
   ) {}
 }
