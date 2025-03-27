@@ -1,5 +1,8 @@
-import { CurrencyEntity } from "./currency.entity";
-import { SubscriptionRule, SubscriptionRuleEntity } from "./subscription-rules.entity";
+import { CurrencyEntity } from './currency.entity'
+import {
+  SubscriptionRule,
+  SubscriptionRuleEntity,
+} from './subscription-rule.entity'
 
 export class SubscriptionEntity {
   constructor(
@@ -12,4 +15,12 @@ export class SubscriptionEntity {
     public readonly updatedAt: Date,
     public readonly rules: SubscriptionRuleEntity<SubscriptionRule>[],
   ) {}
+
+  public getRule<T extends SubscriptionRule>(
+    ruleKey: T,
+  ): SubscriptionRuleEntity<T> | undefined {
+    return this.rules.find(
+      (r) => r.rule === ruleKey,
+    ) as SubscriptionRuleEntity<T>
+  }
 }
