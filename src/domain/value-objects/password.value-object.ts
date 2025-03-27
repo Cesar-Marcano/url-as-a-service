@@ -21,7 +21,7 @@ export class Password {
   }
 
   public static validatePasswordStrength(password: string): boolean {
-    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,100}$/
     return regex.test(password)
   }
 }
