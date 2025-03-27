@@ -2,6 +2,7 @@ import { Email } from '@domain/value-objects/email.value-object'
 import { SubscriptionEntity } from './subscription.entity'
 import { UrlEntity } from './url.entity'
 import { Username } from '@domain/value-objects/username.value-object'
+import { Password } from '@domain/value-objects/password.value-object'
 
 export enum UserType {
   ADMIN = 'admin',
@@ -21,7 +22,7 @@ export class UserEntity {
     public readonly id: number,
     public readonly email: Email,
     public readonly username: Username,
-    public readonly password: string,
+    public readonly password: Password,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
     public readonly urls: UrlEntity[],
