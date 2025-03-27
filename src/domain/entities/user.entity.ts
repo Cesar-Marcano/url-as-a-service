@@ -1,3 +1,4 @@
+import { Email } from '@domain/value-objects/email.value-object'
 import { SubscriptionEntity } from './subscription.entity'
 import { UrlEntity } from './url.entity'
 
@@ -17,7 +18,7 @@ export enum SubscriptionType {
 export class UserEntity {
   constructor(
     public readonly id: number,
-    public readonly email: string,
+    public readonly email: Email,
     public readonly username: string,
     public readonly password: string,
     public readonly createdAt: Date,
