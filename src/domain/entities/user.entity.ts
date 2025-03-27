@@ -32,5 +32,7 @@ export class UserEntity {
     public readonly subscriptionCanceledAt: Date | null,
     public readonly subscriptionAquiredAt: Date,
     public readonly userType: UserType,
+    public readonly isEmailConfirmed: boolean,
+    public readonly is2FAEnabled: boolean,
   ) {}
 }
