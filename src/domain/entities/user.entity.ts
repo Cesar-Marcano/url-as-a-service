@@ -8,6 +8,12 @@ export enum UserType {
   READONLY = 'readonly',
 }
 
+export enum SubscriptionType {
+  ANUAL = 'anual',
+  MONTHLY = 'monthly',
+  WEEKLY = 'weekly',
+}
+
 export class UserEntity {
   constructor(
     public readonly id: number,
@@ -18,6 +24,10 @@ export class UserEntity {
     public readonly updatedAt: Date,
     public readonly urls: UrlEntity[],
     public readonly subscription: SubscriptionEntity,
+    public readonly subscriptionType: SubscriptionType,
+    public readonly subscriptionRenewalDate: Date,
+    public readonly subscriptionCanceledAt: Date | null,
+    public readonly subscriptionAquiredAt: Date,
     public readonly userType: UserType,
   ) {}
 }
