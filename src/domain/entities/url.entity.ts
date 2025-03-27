@@ -1,3 +1,4 @@
+import { UrlClickEntity } from './url-click.entity';
 import { UserEntity } from './user.entity'
 
 export class UrlEntity {
@@ -9,5 +10,6 @@ export class UrlEntity {
     public readonly updatedAt: Date,
     public readonly author: UserEntity,
     public readonly expirationDate: Date | null,
+    public readonly clicks: UrlClickEntity[],
   ) {}
 }
