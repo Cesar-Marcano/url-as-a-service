@@ -1,4 +1,5 @@
 import { CurrencyEntity } from "./currency.entity";
+import { SubscriptionRuleEntity } from "./subscription-rules.entity";
 
 export class SubscriptionEntity {
   constructor(
@@ -9,5 +10,6 @@ export class SubscriptionEntity {
     public readonly currency: CurrencyEntity,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
+    public readonly rules: SubscriptionRuleEntity[],
   ) {}
 }
