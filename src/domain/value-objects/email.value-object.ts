@@ -1,11 +1,11 @@
-import { InvalidFormatError } from "@domain/errors/invalid-format.error"
+import { InvalidFormatError } from '../../shared/errors/invalid-format.error'
 
 export class Email {
   private readonly email: string
 
   constructor(email: string) {
     if (!this.isValidEmail(email)) {
-      throw new InvalidFormatError('email')
+      throw new InvalidFormatError('email', email)
     }
     this.email = email
   }

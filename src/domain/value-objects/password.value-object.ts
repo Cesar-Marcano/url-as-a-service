@@ -1,5 +1,5 @@
-import { WeakPasswordError } from '@domain/errors/weak-password.error'
 import bcrypt from 'bcryptjs'
+import { WeakPasswordError } from '../../shared/errors/weak-password.error'
 
 export class Password {
   constructor(private readonly hash: string) {}

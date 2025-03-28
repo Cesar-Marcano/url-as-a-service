@@ -1,4 +1,4 @@
-import { InvalidFormatError } from '@domain/errors/invalid-format.error'
+import { InvalidFormatError } from '../../shared/errors/invalid-format.error'
 
 export class Username {
   private readonly username: string
