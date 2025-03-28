@@ -1,8 +1,8 @@
-import { Email } from '@domain/value-objects/email.value-object'
 import { UrlEntity } from './url.entity'
-import { Username } from '@domain/value-objects/username.value-object'
-import { Password } from '@domain/value-objects/password.value-object'
 import { SubscriptionHistoryEntity } from './subscription-history.entity'
+import { Email } from '../value-objects/email.value-object'
+import { Username } from '../value-objects/username.value-object'
+import { Password } from '../value-objects/password.value-object'
 
 export enum UserType {
   ADMIN = 'admin',

@@ -7,13 +7,6 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": true,
     "module": "commonjs",
-    "baseUrl": "./src",
-    "paths": {
-      "@application/*": ["application/*"],
-      "@infrastructure/*": ["infrastructure/*"],
-      "@domain/*": ["domain/*"],
-      "@shared/*": ["shared/*"]
-    },
     "rootDir": "./src",
     "outDir": "./dist",
     "removeComments": true,

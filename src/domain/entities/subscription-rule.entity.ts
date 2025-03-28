@@ -1,6 +1,6 @@
-import { SubscriptionRuleStrategy } from '@domain/interfaces/subscription-rule.interface'
+import { SubscriptionRuleStrategy } from '../interfaces/subscription-rule.interface'
+import { NumberRuleStrategy } from '../strategies/number-rule.strategy'
 import { SubscriptionEntity } from './subscription.entity'
-import { NumberRuleStrategy } from '@domain/strategies/number-rule.strategy'
 
 export enum SubscriptionRule {
   MAX_URLS = 'max_urls',
