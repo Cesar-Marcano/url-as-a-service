@@ -11,7 +11,7 @@ export class SubscriptionHistoryEntity {
   constructor(
     public readonly id: number,
     public readonly user: UserEntity,
-    public readonly subscription: SubscriptionEntity,
+    public readonly subscription: SubscriptionEntity | null,
     public readonly subscriptionType: SubscriptionType,
     public readonly startedAt: Date,
     public readonly canceledAt: Date | null,
