@@ -10,16 +10,16 @@ export class SubscriptionEntity {
     public readonly name: string,
     public readonly description: string,
     public readonly price: number,
-    public readonly currency: CurrencyEntity,
+    public readonly currency: CurrencyEntity | null,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
-    public readonly rules: SubscriptionRuleEntity<SubscriptionRule>[],
+    public readonly rules: SubscriptionRuleEntity<SubscriptionRule>[] | null,
   ) {}
 
   public getRule<T extends SubscriptionRule>(
     ruleKey: T,
   ): SubscriptionRuleEntity<T> | undefined {
-    return this.rules.find(
+    return this.rules?.find(
       (r) => r.rule === ruleKey,
     ) as SubscriptionRuleEntity<T>
   }
