@@ -8,8 +8,8 @@ export class UrlEntity {
     public readonly originalUrl: string,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
-    public readonly author: UserEntity,
+    public readonly author: UserEntity | null,
     public readonly expirationDate: Date | null,
-    public readonly clicks: UrlClickEntity[],
+    public readonly clicks: UrlClickEntity[] | null = null,
   ) {}
 }
