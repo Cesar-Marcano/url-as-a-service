@@ -22,7 +22,7 @@ export class SubscriptionRuleEntity<T extends SubscriptionRule> {
 
   constructor(
     public readonly id: number,
-    public readonly subscription: SubscriptionEntity,
+    public readonly subscription: SubscriptionEntity | null,
     public readonly rule: T,
     public readonly value: string,
     public readonly createdAt: Date,
