@@ -6,7 +6,7 @@ export class InvalidFormatError extends BaseError {
     public readonly parameterValue?: unknown,
   ) {
     super({
-      name: 'InvalidFormatError',
+      name: InvalidFormatError.name,
       message: `Invalid format for ${parameterName}`,
       statusCode: 400,
       metadata: {
