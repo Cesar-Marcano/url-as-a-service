@@ -1,11 +1,14 @@
 import { UrlClickEntity } from '../entities/url-click.entity'
 
-export interface UrlRepository {
+export interface UrlClickFilter {
+  fromIpAddress?: string
+  fromUserAgent?: string
+  startDate?: Date
+  endDate?: Date
+}
+
+export interface UrlClickRepository {
   registerClick(urlClick: UrlClickEntity): Promise<UrlClickEntity>
-  getClickCountByUrlId(urlId: string): Promise<number>
-  getClickCountBetweenDates(
-    urlId: string,
-    startDate: Date,
-    endDate: Date,
-  ): Promise<number>
+
+  getClickCountByUrlId(urlId: string, filters?: UrlClickFilter): Promise<number>
 }
