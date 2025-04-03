@@ -3,7 +3,7 @@ import {
   SubscriptionRuleEntity,
 } from '../entities/subscription-rule.entity'
 
-export interface SubscriptionRuleRepository {
+export interface ISubscriptionRuleRepository {
   findById(id: number): Promise<SubscriptionRuleEntity<SubscriptionRule> | null>
 
   findBySubscriptionId(

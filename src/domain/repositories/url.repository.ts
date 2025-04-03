@@ -1,6 +1,6 @@
 import { UrlEntity } from "../entities/url.entity";
 
-export interface UrlRepository {
+export interface IUrlRepository {
     findById(id: string): Promise<UrlEntity | null>;
     findBySlug(slug: string): Promise<UrlEntity | null>;
     findByLongUrl(originalUrl: string): Promise<UrlEntity | null>;

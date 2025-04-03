@@ -1,6 +1,6 @@
 import { SubscriptionEntity } from "../entities/subscription.entity"
 
-export interface SubscriptionRepository {
+export interface ISubscriptionRepository {
   findById(id: number): Promise<SubscriptionEntity | null>
   findByName(name: string): Promise<SubscriptionEntity | null>
   create(subscription: SubscriptionEntity): Promise<SubscriptionEntity>

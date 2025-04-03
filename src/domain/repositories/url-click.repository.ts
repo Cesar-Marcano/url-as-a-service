@@ -7,7 +7,7 @@ export interface UrlClickFilter {
   endDate?: Date
 }
 
-export interface UrlClickRepository {
+export interface IUrlClickRepository {
   registerClick(urlClick: UrlClickEntity): Promise<UrlClickEntity>
 
   getClickCountByUrlId(urlId: string, filters?: UrlClickFilter): Promise<number>
