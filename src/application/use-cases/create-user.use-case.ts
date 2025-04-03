@@ -8,17 +8,18 @@ import { UserMapper } from '../mappers/user.mapper'
 
 export interface CreateUserInput {
   email: string
-  password: string
+  password: string,
+  userType: UserType
 }
 
 export class CreateUserUseCase implements UseCase<CreateUserInput, UserDTO> {
   constructor(private readonly userRepository: IUserRepository) {}
 
-  async execute({ email, password }: CreateUserInput): Promise<UserDTO> {
+  async execute({ email, password, userType }: CreateUserInput): Promise<UserDTO> {
     const user = UserEntity.create(
       new Email(email),
       await Password.create(password),
-      UserType.USER,
+      userType,
     )
 
     const newUser = await this.userRepository.createUser(user)
