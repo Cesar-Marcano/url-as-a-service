@@ -5,7 +5,7 @@ export interface UrlRepository {
     findBySlug(slug: string): Promise<UrlEntity | null>;
     findByLongUrl(originalUrl: string): Promise<UrlEntity | null>;
     create(url: UrlEntity): Promise<UrlEntity>;
-    update(url: UrlEntity): Promise<UrlEntity>;
+    update(url: Partial<UrlEntity>): Promise<UrlEntity>;
     delete(id: string): Promise<void>;
     getAll(): Promise<UrlEntity[]>;
     count(): Promise<number>;
