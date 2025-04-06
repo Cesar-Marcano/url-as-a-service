@@ -9,10 +9,12 @@ export function setupRouter(app: Application) {
 
   fs.readdirSync(routesDir).forEach(async (file) => {
     if (file.endsWith('.route.ts')) {
-      const route = await import(path.join(routesDir, file))
+      const { router: routeRouter, name } = await import(
+        path.join(routesDir, file)
+      )
 
-      if (route.setupRoute) {
-        route.setupRoute(router)
+      if (routeRouter) {
+        router.use(`/${name ?? ''}`, routeRouter)
       }
     }
   })
