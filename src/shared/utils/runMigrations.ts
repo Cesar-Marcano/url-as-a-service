@@ -1,24 +1,44 @@
 import fs from 'fs'
 import path from 'path'
 import { Pool } from 'pg'
-import { createSqlRunner } from './createSqlRunner'
-import { cwd } from 'process'
+import { createSqlRunner, SqlRunnerScope } from './createSqlRunner'
+import { checkMigration } from './checkMigration'
 
-export async function runMigrations(
-  pool: Pool,
-  migrationsDir: string,
-  basePath?: string
-): Promise<void> {
+export async function runMigrations(pool: Pool): Promise<void> {
+  const resolvedDir = path.resolve(
+    process.cwd(),
+    'src/infrastructure/database/migrations/',
+  )
+
+  if (!fs.existsSync(resolvedDir)) {
+    throw new Error(`Migrations directory not found: ${resolvedDir}`)
+  }
+
   const files = fs
-    .readdirSync(path.resolve(basePath ?? cwd(), migrationsDir))
+    .readdirSync(resolvedDir)
     .filter((file) => file.endsWith('.sql'))
     .sort()
 
+  console.log(`🚀 Running ${files.length} migrations from: ${resolvedDir}`)
+
   for (const file of files) {
-    const fullPath = path.join(migrationsDir, file)
+    const isMigrationAlreadyApplied = await checkMigration(pool, file)
+    if (isMigrationAlreadyApplied) {
+      console.log(`✅ Migration already applied: ${file}`)
+      continue
+    }
 
-    const runner = createSqlRunner(fullPath)
+    const runner = createSqlRunner(file, SqlRunnerScope.Migrations)
 
+    console.log(`📦 Running migration: ${file}`)
     await runner(pool)
+
+    await pool.query(
+      'INSERT INTO migrations (name) VALUES ($1)',
+      [file],
+    )
+    console.log(`✅ Migration completed: ${file}`)
   }
+
+  console.log('✅ All migrations completed.')
 }
