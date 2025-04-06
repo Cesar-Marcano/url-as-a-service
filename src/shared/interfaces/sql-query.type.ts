@@ -1,3 +1,3 @@
-import { Pool, QueryResult, QueryResultRow } from "pg";
+import { Pool, QueryResult } from "pg";
 
-export type SqlQuery<T extends QueryResultRow> = (db: Pool, params: any[]) => Promise<QueryResult<T>>
+export type SqlQuery = (db: Pool, params: any[]) => Promise<QueryResult>

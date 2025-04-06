@@ -2,11 +2,12 @@ import { Pool } from 'pg'
 import { UserEntity } from '../../domain/entities/user.entity'
 import { IUserRepository } from '../../domain/repositories/user.repository'
 import { SqlQuery } from '../../shared/interfaces/sql-query.type'
+import { UserMapper } from '../../application/mappers/user.mapper'
 
 export class UserRepository implements IUserRepository {
   constructor(
     private readonly db: Pool,
-    private readonly createUserQuery: SqlQuery<UserEntity>,
+    private readonly createUserQuery: SqlQuery,
   ) {}
 
   getUserById(_id: number): Promise<UserEntity | null> {
@@ -28,7 +29,7 @@ export class UserRepository implements IUserRepository {
       throw new Error('Error creating user')
     }
 
-    return newUser.rows[0]
+    return UserMapper.fromDB(newUser.rows[0])
   }
 
   updateUser(
