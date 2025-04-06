@@ -2,8 +2,10 @@ import fs from 'fs'
 import path from 'path'
 import { Pool } from 'pg'
 
-export async function runSqlFile(pool: Pool, filePath: string): Promise<void> {
+export function createSqlRunner(filePath: string) {
   const sql = fs.readFileSync(path.resolve(filePath), 'utf-8')
 
-  await pool.query(sql)
+  return async function run(pool: Pool, params: any[] = []): Promise<void> {
+    await pool.query(sql, params)
+  }
 }
