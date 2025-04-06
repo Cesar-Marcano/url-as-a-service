@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { Pool } from 'pg'
 import { SqlQuery } from '../interfaces/sql-query.type'
+import { logger } from './logger'
 
 export enum SqlRunnerScope {
   Queries = 'queries',
@@ -29,7 +30,7 @@ export function createSqlRunner(
     try {
       return await pool.query(sql, params)
     } catch (error) {
-      console.error(`❌ Error executing SQL from ${filePath}`)
+      logger.error(`❌ Error executing SQL from ${filePath}`)
       throw error
     }
   }

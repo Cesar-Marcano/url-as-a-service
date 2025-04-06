@@ -1,4 +1,5 @@
 import { Pool } from 'pg'
+import { logger } from './logger'
 
 export async function checkMigration(
   pool: Pool,
@@ -11,7 +12,7 @@ export async function checkMigration(
     )
     return result.rowCount! > 0
   } catch (error) {
-    console.error(`❌ Error checking migration: ${migrationName}`, error)
+    logger.error(`❌ Error checking migration: ${migrationName}`, error)
     throw error
   }
 }
