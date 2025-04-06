@@ -10,5 +10,5 @@ export interface UrlClickFilter {
 export interface IUrlClickRepository {
   registerClick(urlClick: UrlClickEntity): Promise<UrlClickEntity>
 
-  getClickCountByUrlId(urlId: string, filters?: UrlClickFilter): Promise<number>
+  getClickCountByUrlId(urlId: number, filters?: UrlClickFilter): Promise<number>
 }
