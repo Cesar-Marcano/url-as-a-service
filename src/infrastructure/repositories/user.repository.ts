@@ -33,13 +33,13 @@ export class UserRepository implements IUserRepository {
   }
 
   updateUser(
-    _id: string,
+    _id: number,
     _user: Partial<UserEntity>,
   ): Promise<UserEntity | null> {
     throw new Error('Method not implemented.')
   }
 
-  deleteUser(_id: string): Promise<boolean> {
+  deleteUser(_id: number): Promise<boolean> {
     throw new Error('Method not implemented.')
   }
 }
