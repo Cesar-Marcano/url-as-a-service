@@ -25,9 +25,9 @@ export function createSqlRunner(
 
   const sql = fs.readFileSync(absolutePath, 'utf-8')
 
-  return async function run(pool: Pool, params: any[] = []): Promise<void> {
+  return async function run(pool: Pool, params: any[] = []) {
     try {
-      await pool.query(sql, params)
+      return await pool.query(sql, params)
     } catch (error) {
       console.error(`❌ Error executing SQL from ${filePath}`)
       throw error
