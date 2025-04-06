@@ -8,7 +8,7 @@ export async function runMigrations(
   migrationsDir: string,
 ): Promise<void> {
   const files = fs
-    .readdirSync(migrationsDir)
+    .readdirSync(path.resolve(__dirname, migrationsDir))
     .filter((file) => file.endsWith('.sql'))
     .sort()
 
