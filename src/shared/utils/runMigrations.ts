@@ -5,6 +5,13 @@ import { createSqlRunner, SqlRunnerScope } from './createSqlRunner'
 import { checkMigration } from './checkMigration'
 
 export async function runMigrations(pool: Pool): Promise<void> {
+  const createMigrationsTable = createSqlRunner(
+    '0001_create_migrations_table.sql',
+    SqlRunnerScope.Migrations,
+  )
+
+  await createMigrationsTable(pool)
+
   const resolvedDir = path.resolve(
     process.cwd(),
     'src/infrastructure/database/migrations/',
@@ -33,10 +40,7 @@ export async function runMigrations(pool: Pool): Promise<void> {
     console.log(`📦 Running migration: ${file}`)
     await runner(pool)
 
-    await pool.query(
-      'INSERT INTO migrations (name) VALUES ($1)',
-      [file],
-    )
+    await pool.query('INSERT INTO migrations (name) VALUES ($1)', [file])
     console.log(`✅ Migration completed: ${file}`)
   }
 
