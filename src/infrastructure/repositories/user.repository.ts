@@ -3,12 +3,20 @@ import { UserEntity } from '../../domain/entities/user.entity'
 import { IUserRepository } from '../../domain/repositories/user.repository'
 import { SqlQuery } from '../../shared/interfaces/sql-query.type'
 import { UserMapper } from '../../application/mappers/user.mapper'
+import {
+  createSqlRunner,
+  SqlRunnerScope,
+} from '../../shared/utils/createSqlRunner'
 
 export class UserRepository implements IUserRepository {
-  constructor(
-    private readonly db: Pool,
-    private readonly createUserQuery: SqlQuery,
-  ) {}
+  private readonly createUserQuery: SqlQuery
+
+  constructor(private readonly db: Pool) {
+    this.createUserQuery = createSqlRunner(
+      'users/createUser.sql',
+      SqlRunnerScope.Queries,
+    )
+  }
 
   getUserById(_id: number): Promise<UserEntity | null> {
     throw new Error('Method not implemented.')
@@ -20,8 +28,8 @@ export class UserRepository implements IUserRepository {
 
   async createUser(user: UserEntity): Promise<UserEntity> {
     const newUser = await this.createUserQuery(this.db, [
-      user.email,
-      user.password,
+      user.email.toString(),
+      user.password.toString(),
       user.userType,
     ])
 
