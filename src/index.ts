@@ -10,7 +10,7 @@ async function bootstrap() {
 
   const configService = new ConfigService()
 
-  new Server(configService).start(3000)
+  new Server(configService).start(configService.getPort())
 }
 
 void bootstrap()
