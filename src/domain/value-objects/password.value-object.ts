@@ -8,6 +8,10 @@ export class Password {
     return bcrypt.compare(password, this.hash)
   }
 
+  public toString(): string {
+    return this.hash
+  }
+
   public static async create(password: string): Promise<Password> {
     if (!this.validatePasswordStrength(password)) {
       throw new WeakPasswordError()
