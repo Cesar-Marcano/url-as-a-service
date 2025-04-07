@@ -1,4 +1,4 @@
-import { type Request, type Response } from 'express'
+import { NextFunction, type Request, type Response } from 'express'
 import { ErrorResponse } from './error.interface'
 
 export type AuthenticatedRequest<
@@ -22,5 +22,6 @@ export interface Controller<
   handle: (
     req: AuthenticatedRequest<User, Body, Params, Query>,
     res: TypedResponse<DTO>,
-  ) => Promise<DTO>
+    next: NextFunction
+  ) => Promise<DTO | void>
 }
