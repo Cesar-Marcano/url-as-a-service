@@ -10,10 +10,16 @@ import {
 
 export class UserRepository implements IUserRepository {
   private readonly createUserQuery: SqlQuery
+  private readonly checkUserByEmailQuery: SqlQuery
 
   constructor(private readonly db: Pool) {
     this.createUserQuery = createSqlRunner(
       'users/createUser.sql',
+      SqlRunnerScope.Queries,
+    )
+
+    this.checkUserByEmailQuery = createSqlRunner(
+      'users/checkUserByEmail.sql',
       SqlRunnerScope.Queries,
     )
   }
@@ -24,6 +30,12 @@ export class UserRepository implements IUserRepository {
 
   getUserByEmail(_email: string): Promise<UserEntity | null> {
     throw new Error('Method not implemented.')
+  }
+
+  async checkUserByEmail(email: string): Promise<boolean> {
+    const result = await this.checkUserByEmailQuery(this.db, [email])
+
+    return result.rows[0]?.exists ?? false
   }
 
   async createUser(user: UserEntity): Promise<UserEntity> {
