@@ -23,6 +23,9 @@ export class UserRepository implements IUserRepository {
       SqlRunnerScope.Queries,
     )
   }
+  getUserByUsername(_username: string): Promise<UserEntity | null> {
+    throw new Error('Method not implemented.')
+  }
 
   getUserById(_id: number): Promise<UserEntity | null> {
     throw new Error('Method not implemented.')

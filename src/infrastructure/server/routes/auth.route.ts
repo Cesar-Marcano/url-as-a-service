@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { CreateUserController } from '../../controllers/createUser.controller'
-import { CreateUserUseCase } from '../../../application/use-cases/create-user.use-case'
+import { CreateUserUseCase } from '../../../application/use-cases/create-user/create-user.use-case'
 import { UserRepository } from '../../repositories/user.repository'
 import { db } from '../../database/database.instance'
 
