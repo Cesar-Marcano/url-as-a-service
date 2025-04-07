@@ -14,8 +14,8 @@ export async function runMigrations(pool: Pool): Promise<void> {
   await createMigrationsTable(pool)
 
   const resolvedDir = path.resolve(
-    process.cwd(),
-    'src/infrastructure/database/migrations/',
+    __dirname,
+    '../../infrastructure/database/migrations/',
   )
 
   if (!fs.existsSync(resolvedDir)) {

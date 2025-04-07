@@ -14,8 +14,8 @@ export function createSqlRunner(
   scope = SqlRunnerScope.Queries,
 ): SqlQuery {
   const absolutePath = path.resolve(
-    process.cwd(),
-    'src/infrastructure/database',
+    __dirname,
+    '../../infrastructure/database',
     scope,
     filePath,
   )
