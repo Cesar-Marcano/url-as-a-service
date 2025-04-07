@@ -12,6 +12,5 @@ const createUserUseCase = new CreateUserUseCase(userRepository)
 const createUserController = new CreateUserController(createUserUseCase)
 
 router.post('/signup', async (req, res, next) => {
-  console.log('AAA')
   await createUserController.handle(req as any, res, next)
 })
