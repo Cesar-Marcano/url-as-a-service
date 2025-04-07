@@ -7,10 +7,15 @@ import {
   createSqlRunner,
   SqlRunnerScope,
 } from '../../shared/utils/createSqlRunner'
+import {
+  NotFoundErrorException,
+  NotFoundErrorExceptionScope,
+} from '../../shared/errors/not-found.error'
 
 export class UserRepository implements IUserRepository {
   private readonly createUserQuery: SqlQuery
   private readonly checkUserByEmailQuery: SqlQuery
+  private readonly getUserByEmailQuery: SqlQuery
 
   constructor(private readonly db: Pool) {
     this.createUserQuery = createSqlRunner(
@@ -22,6 +27,11 @@ export class UserRepository implements IUserRepository {
       'users/checkUserByEmail.sql',
       SqlRunnerScope.Queries,
     )
+
+    this.getUserByEmailQuery = createSqlRunner(
+      'users/getUserByEmail.sql',
+      SqlRunnerScope.Queries,
+    )
   }
   getUserByUsername(_username: string): Promise<UserEntity | null> {
     throw new Error('Method not implemented.')
@@ -31,8 +41,17 @@ export class UserRepository implements IUserRepository {
     throw new Error('Method not implemented.')
   }
 
-  getUserByEmail(_email: string): Promise<UserEntity | null> {
-    throw new Error('Method not implemented.')
+  async getUserByEmail(email: string): Promise<UserEntity | null> {
+    const result = await this.getUserByEmailQuery(this.db, [email])
+
+    if (!result.rows[0]) {
+      throw new NotFoundErrorException(
+        NotFoundErrorExceptionScope.DATABASE,
+        'user',
+      )
+    }
+
+    return UserMapper.fromDB(result.rows[0])
   }
 
   async checkUserByEmail(email: string): Promise<boolean> {
