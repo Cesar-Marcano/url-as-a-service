@@ -1,5 +1,4 @@
 import { NextFunction } from 'express'
-import { UserDTO } from '../../application/dtos/user.dto'
 import { CreateUserUseCase } from '../../application/use-cases/create-user/create-user.use-case'
 import { UserType } from '../../domain/entities/user.entity'
 import {
