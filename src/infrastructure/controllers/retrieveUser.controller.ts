@@ -30,14 +30,16 @@ export class RetrieveUserController
       const cachedUser = await this.cacheService.get<UserDTO>(cacheKey)
 
       if (cachedUser) {
+        res.setHeader('X-Cache', 'HIT')
         res.status(200).json(cachedUser)
         return
       }
-
+      
       const user = await this.retrieveUserUseCase.execute(queryParams)
-
+      
       this.cacheService.save(cacheKey, user)
-
+      
+      res.setHeader('X-Cache', 'MISS')
       res.status(200).json(user)
       return user
     } catch (error) {
