@@ -3,7 +3,12 @@ import { JwtPayload } from '../../domain/interfaces/jwt-payload.interface'
 import { TokenType } from '../../domain/enums/token-type.enum'
 import ms from 'ms'
 
-export class JwtService {
+export interface IJwtService {
+  sign(payload: JwtPayload, expiresIn: number | ms.StringValue): string
+  verify(token: string, type: TokenType): JwtPayload
+}
+
+export class JwtService implements IJwtService {
   constructor(
     private readonly accessSecret: string,
     private readonly refreshSecret: string,
