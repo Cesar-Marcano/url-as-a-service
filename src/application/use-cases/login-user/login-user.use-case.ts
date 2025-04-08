@@ -11,7 +11,8 @@ export class LoginUserUseCase implements UseCase<LoginUserInput, UserDTO> {
     const { email, password } = input
 
     const user = await this.userRepository.getUserByEmail(email)
-    if (!user || !user.password.compare(password)) {
+    const areNotPasswordsEqual = await user?.password.compare(password)
+    if (!user || !areNotPasswordsEqual) {
       throw new Error('Invalid email or password')
     }
 

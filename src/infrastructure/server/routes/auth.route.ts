@@ -7,6 +7,8 @@ import { RetrieveUserUseCase } from '../../../application/use-cases/retrieve-use
 import { ReteiveUserController } from '../../controllers/reteiveUser.controller'
 import { RetrieveUserByIdStrategy } from '../../../application/use-cases/retrieve-user/strategies/by-id.strategy'
 import { RetrieveUserByUsernameStrategy } from '../../../application/use-cases/retrieve-user/strategies/by-username.strategy'
+import { LoginUserUseCase } from '../../../application/use-cases/login-user/login-user.use-case'
+import { LoginUserController } from '../../controllers/loginUser.controller'
 
 export const router = Router()
 export const name = 'auth'
@@ -14,16 +16,22 @@ export const name = 'auth'
 const userRepository = new UserRepository(db)
 
 const createUserUseCase = new CreateUserUseCase(userRepository)
+const loginUserUseCase = new LoginUserUseCase(userRepository)
 const retrieveUserUseCase = new RetrieveUserUseCase([
   new RetrieveUserByIdStrategy(userRepository),
   new RetrieveUserByUsernameStrategy(userRepository),
 ])
 
 const createUserController = new CreateUserController(createUserUseCase)
+const loginUserController = new LoginUserController(loginUserUseCase)
 const retrieveUserController = new ReteiveUserController(retrieveUserUseCase)
 
 router.post('/signup', async (req, res, next) => {
   await createUserController.handle(req as any, res, next)
+})
+
+router.post('/login', async (req, res, next) => {
+  await loginUserController.handle(req as any, res, next)
 })
 
 router.get('/getUser', async (req, res, next) => {
