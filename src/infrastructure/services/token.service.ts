@@ -2,11 +2,7 @@ import jwt from 'jsonwebtoken'
 import { JwtPayload } from '../../domain/interfaces/jwt-payload.interface'
 import { TokenType } from '../../domain/enums/token-type.enum'
 import ms from 'ms'
-
-export interface IJwtService {
-  sign(payload: JwtPayload, expiresIn: number | ms.StringValue): string
-  verify(token: string, type: TokenType): JwtPayload
-}
+import { IJwtService } from '../../domain/services/jwt.service'
 
 export class JwtService implements IJwtService {
   constructor(
