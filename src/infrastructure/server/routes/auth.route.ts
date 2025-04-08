@@ -4,7 +4,7 @@ import { CreateUserUseCase } from '../../../application/use-cases/create-user/cr
 import { UserRepository } from '../../repositories/user.repository'
 import { db } from '../../database/database.instance'
 import { RetrieveUserUseCase } from '../../../application/use-cases/retrieve-user/retrieve-user.use-case'
-import { ReteiveUserController } from '../../controllers/reteiveUser.controller'
+import { RetrieveUserController } from '../../controllers/reteiveUser.controller'
 import { RetrieveUserByIdStrategy } from '../../../application/use-cases/retrieve-user/strategies/by-id.strategy'
 import { RetrieveUserByUsernameStrategy } from '../../../application/use-cases/retrieve-user/strategies/by-username.strategy'
 import { LoginUserUseCase } from '../../../application/use-cases/login-user/login-user.use-case'
@@ -24,7 +24,7 @@ const retrieveUserUseCase = new RetrieveUserUseCase([
 
 const createUserController = new CreateUserController(createUserUseCase)
 const loginUserController = new LoginUserController(loginUserUseCase)
-const retrieveUserController = new ReteiveUserController(retrieveUserUseCase)
+const retrieveUserController = new RetrieveUserController(retrieveUserUseCase)
 
 router.post('/signup', async (req, res, next) => {
   await createUserController.handle(req as any, res, next)
