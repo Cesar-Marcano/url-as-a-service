@@ -1,4 +1,5 @@
 import { IUserRepository } from '../../../domain/repositories/user.repository'
+import { UnauthorizedErrorException } from '../../../shared/errors/unauthorized.error'
 import { UserDTO } from '../../dtos/user.dto'
 import { UseCase } from '../../interfaces/use-case.interface'
 import { UserMapper } from '../../mappers/user.mapper'
@@ -13,7 +14,7 @@ export class LoginUserUseCase implements UseCase<LoginUserInput, UserDTO> {
     const user = await this.userRepository.getUserByEmail(email)
     const areNotPasswordsEqual = await user?.password.compare(password)
     if (!user || !areNotPasswordsEqual) {
-      throw new Error('Invalid email or password')
+      throw new UnauthorizedErrorException('Invalid email or password')
     }
 
     return UserMapper.toDTO(user)
