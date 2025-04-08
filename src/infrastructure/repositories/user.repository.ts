@@ -13,16 +13,17 @@ import {
 } from '../../shared/errors/not-found.error'
 
 export class UserRepository implements IUserRepository {
-  private readonly createUserQuery: SqlQuery
+  // DQL
   private readonly checkUserByEmailQuery: SqlQuery
   private readonly getUserByEmailQuery: SqlQuery
+  private readonly getUserByUsernameQuery: SqlQuery
+  private readonly getUserByIdQuery: SqlQuery
+
+  // DML
+  private readonly createUserQuery: SqlQuery
 
   constructor(private readonly db: Pool) {
-    this.createUserQuery = createSqlRunner(
-      'users/createUser.sql',
-      SqlRunnerScope.Queries,
-    )
-
+    // DQL
     this.checkUserByEmailQuery = createSqlRunner(
       'users/checkUserByEmail.sql',
       SqlRunnerScope.Queries,
@@ -32,13 +33,48 @@ export class UserRepository implements IUserRepository {
       'users/getUserByEmail.sql',
       SqlRunnerScope.Queries,
     )
-  }
-  getUserByUsername(_username: string): Promise<UserEntity | null> {
-    throw new Error('Method not implemented.')
+
+    this.getUserByUsernameQuery = createSqlRunner(
+      'users/getUserByUsername.sql',
+      SqlRunnerScope.Queries,
+    )
+
+    this.getUserByIdQuery = createSqlRunner(
+      'users/getUserById.sql',
+      SqlRunnerScope.Queries,
+    )
+
+    // DML
+    this.createUserQuery = createSqlRunner(
+      'users/createUser.sql',
+      SqlRunnerScope.Queries,
+    )
   }
 
-  getUserById(_id: number): Promise<UserEntity | null> {
-    throw new Error('Method not implemented.')
+  async getUserByUsername(username: string): Promise<UserEntity | null> {
+    const result = await this.getUserByUsernameQuery(this.db, [username])
+
+    if (!result.rows[0]) {
+      throw new NotFoundErrorException(
+        NotFoundErrorExceptionScope.DATABASE,
+        'user',
+      )
+    }
+
+    return UserMapper.fromDB(result.rows[0])
+  }
+
+  async getUserById(id: number): Promise<UserEntity | null> {
+    const result = await this.getUserByIdQuery(this.db, [id])
+
+    if (!result.rows[0]) {
+      throw new NotFoundErrorException(
+        NotFoundErrorExceptionScope.DATABASE,
+        'user',
+      )
+    }
+
+    return UserMapper.fromDB(result.rows[0])
   }
 
   async getUserByEmail(email: string): Promise<UserEntity | null> {
