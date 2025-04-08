@@ -5,6 +5,8 @@ import { UserRepository } from '../../repositories/user.repository'
 import { db } from '../../database/database.instance'
 import { RetrieveUserUseCase } from '../../../application/use-cases/retrieve-user/retrieve-user.use-case'
 import { ReteiveUserController } from '../../controllers/reteiveUser.controller'
+import { RetrieveUserByIdStrategy } from '../../../application/use-cases/retrieve-user/strategies/by-id.strategy'
+import { RetrieveUserByUsernameStrategy } from '../../../application/use-cases/retrieve-user/strategies/by-username.strategy'
 
 export const router = Router()
 export const name = 'auth'
@@ -12,7 +14,10 @@ export const name = 'auth'
 const userRepository = new UserRepository(db)
 
 const createUserUseCase = new CreateUserUseCase(userRepository)
-const retrieveUserUseCase = new RetrieveUserUseCase(userRepository)
+const retrieveUserUseCase = new RetrieveUserUseCase([
+  new RetrieveUserByIdStrategy(userRepository),
+  new RetrieveUserByUsernameStrategy(userRepository),
+])
 
 const createUserController = new CreateUserController(createUserUseCase)
 const retrieveUserController = new ReteiveUserController(retrieveUserUseCase)
