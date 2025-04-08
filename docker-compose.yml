@@ -1,0 +1,40 @@
+services:
+  app:
+    build:
+      context: .
+      target: build
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.production.local
+    environment:
+      NODE_ENV: production
+    command: [ "pnpm", "start" ]
+
+  postgres:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:latest
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
