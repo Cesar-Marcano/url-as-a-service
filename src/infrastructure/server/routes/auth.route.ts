@@ -11,12 +11,21 @@ import { LoginUserUseCase } from '../../../application/use-cases/login-user/logi
 import { LoginUserController } from '../../controllers/loginUser.controller'
 import { CacheService } from '../../services/cache.service'
 import { cache } from '../../cache/redis.instance'
+import { RefreshTokenUseCase } from '../../../application/use-cases/refresh-token/refresh-token.use-case'
+import { JwtService } from '../../services/token.service'
+import { ConfigService } from '../../config/main.config'
 
 export const router = Router()
 export const name = 'auth'
 
 const userRepository = new UserRepository(db)
 const cacheService = new CacheService(cache)
+const configService = new ConfigService()
+
+const tokenService = new JwtService(
+  configService.getJwtAccessSecret(),
+  configService.getJwtRefreshSecret(),
+)
 
 const createUserUseCase = new CreateUserUseCase(userRepository)
 const loginUserUseCase = new LoginUserUseCase(userRepository)
@@ -24,9 +33,19 @@ const retrieveUserUseCase = new RetrieveUserUseCase([
   new RetrieveUserByIdStrategy(userRepository),
   new RetrieveUserByUsernameStrategy(userRepository),
 ])
+const refreshTokenUseCase = new RefreshTokenUseCase(
+  tokenService,
+  configService.getRefreshTokenDuration(),
+)
 
-const createUserController = new CreateUserController(createUserUseCase)
-const loginUserController = new LoginUserController(loginUserUseCase)
+const createUserController = new CreateUserController(
+  createUserUseCase,
+  refreshTokenUseCase,
+)
+const loginUserController = new LoginUserController(
+  loginUserUseCase,
+  refreshTokenUseCase,
+)
 const retrieveUserController = new RetrieveUserController(
   retrieveUserUseCase,
   cacheService,
