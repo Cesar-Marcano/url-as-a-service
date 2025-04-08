@@ -17,7 +17,7 @@ import { ConfigService } from '../../config/main.config'
 
 // Route settings
 export const router = Router()
-export const name = 'auth'
+export const name = 'auth' // route prefix
 
 // Respositories
 const userRepository = new UserRepository(db)
