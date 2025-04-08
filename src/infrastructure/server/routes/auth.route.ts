@@ -14,6 +14,9 @@ import { cache } from '../../cache/redis.instance'
 import { RefreshTokenUseCase } from '../../../application/use-cases/refresh-token/refresh-token.use-case'
 import { JwtService } from '../../services/token.service'
 import { ConfigService } from '../../config/main.config'
+import { AccessTokenUseCase } from '../../../application/use-cases/access-token/access-token.use-case'
+import { AccessTokenController } from '../../controllers/accessToken.controller'
+import { jwtRefreshMiddleware } from '../../../shared/middlewares/auth.middleware'
 
 // Route settings
 export const router = Router()
@@ -42,6 +45,10 @@ const refreshTokenUseCase = new RefreshTokenUseCase(
   tokenService,
   configService.getRefreshTokenDuration(),
 )
+const accessTokenUseCase = new AccessTokenUseCase(
+  tokenService,
+  configService.getAccessTokenDuration(),
+)
 
 // Controllers
 const createUserController = new CreateUserController(
@@ -56,6 +63,7 @@ const retrieveUserController = new RetrieveUserController(
   retrieveUserUseCase,
   cacheService,
 )
+const accessTokenController = new AccessTokenController(accessTokenUseCase)
 
 // Route definitions
 router.post('/signup', async (req, res, next) => {
@@ -68,4 +76,8 @@ router.post('/login', async (req, res, next) => {
 
 router.get('/getUser', async (req, res, next) => {
   await retrieveUserController.handle(req as any, res, next)
+})
+
+router.post('/access-token', jwtRefreshMiddleware, async (req, res, next) => {
+  await accessTokenController.handle(req as any, res, next)
 })
