@@ -80,14 +80,7 @@ export class UserRepository implements IUserRepository {
   async getUserByEmail(email: string): Promise<UserEntity | null> {
     const result = await this.getUserByEmailQuery(this.db, [email])
 
-    if (!result.rows[0]) {
-      throw new NotFoundErrorException(
-        NotFoundErrorExceptionScope.DATABASE,
-        'user',
-      )
-    }
-
-    return UserMapper.fromDB(result.rows[0])
+    return !result.rows[0] ? null : UserMapper.fromDB(result.rows[0])
   }
 
   async checkUserByEmail(email: string): Promise<boolean> {
