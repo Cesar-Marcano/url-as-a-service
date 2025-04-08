@@ -1,5 +1,4 @@
 import { NextFunction } from 'express'
-import { UserDTO } from '../../application/dtos/user.dto'
 import { LoginUserUseCase } from '../../application/use-cases/login-user/login-user.use-case'
 import {
   HydratedRequest,

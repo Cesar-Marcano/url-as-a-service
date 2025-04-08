@@ -7,6 +7,8 @@ import {
   Controller,
   HydratedResponse,
 } from '../../shared/interfaces/controller.interface'
+import { RefreshTokenUseCase } from '../../application/use-cases/refresh-token/refresh-token.use-case'
+import { LoginResponse } from './loginUser.controller'
 
 export interface CreateUserDto {
   email: string
@@ -14,15 +16,18 @@ export interface CreateUserDto {
 }
 
 export class CreateUserController
-  implements Controller<unknown, CreateUserDto, unknown, unknown, UserDTO>
+  implements Controller<unknown, CreateUserDto, unknown, unknown, LoginResponse>
 {
-  constructor(private readonly createUserUseCase: CreateUserUseCase) {}
+  constructor(
+    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly refreshTokenUseCase: RefreshTokenUseCase,
+  ) {}
 
   async handle(
     req: HydratedRequest<unknown, CreateUserDto, unknown, unknown>,
-    res: HydratedResponse<UserDTO>,
-    next: NextFunction
-  ): Promise<UserDTO | void> {
+    res: HydratedResponse<LoginResponse>,
+    next: NextFunction,
+  ): Promise<LoginResponse | void> {
     try {
       const { email, password } = req.body
       const user = await this.createUserUseCase.execute({
@@ -30,10 +35,17 @@ export class CreateUserController
         password,
         userType: UserType.USER,
       })
-      res.status(201).json(user)
-      return user
+
+      const refreshToken = await this.refreshTokenUseCase.execute({
+        userId: user.id,
+        email: user.email,
+        role: user.userType as UserType,
+      })
+
+      res.status(201).json({ refreshToken })
+      return { refreshToken }
     } catch (error) {
-        next(error)
+      next(error)
     }
   }
 }
