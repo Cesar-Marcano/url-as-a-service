@@ -2,9 +2,9 @@ import { NextFunction } from 'express'
 import { UserDTO } from '../../application/dtos/user.dto'
 import { RetrieveUserInput } from '../../application/use-cases/retrieve-user/retrieve-user.input'
 import {
-  AuthenticatedRequest,
+  HydratedRequest,
   Controller,
-  TypedResponse,
+  HydratedResponse,
 } from '../../shared/interfaces/controller.interface'
 import { RetrieveUserUseCase } from '../../application/use-cases/retrieve-user/retrieve-user.use-case'
 
@@ -14,8 +14,8 @@ export class ReteiveUserController
   constructor(private readonly retrieveUserUseCase: RetrieveUserUseCase) {}
 
   async handle(
-    req: AuthenticatedRequest<unknown, unknown, unknown, RetrieveUserInput>,
-    res: TypedResponse<UserDTO>,
+    req: HydratedRequest<unknown, unknown, unknown, RetrieveUserInput>,
+    res: HydratedResponse<UserDTO>,
     next: NextFunction,
   ): Promise<UserDTO | void> {
     try {

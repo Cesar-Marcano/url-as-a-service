@@ -1,7 +1,7 @@
 import { NextFunction, type Request, type Response } from 'express'
 import { ErrorResponse } from './error.interface'
 
-export type AuthenticatedRequest<
+export type HydratedRequest<
   User = unknown,
   Body = unknown,
   Params = Record<string, string>,
@@ -10,7 +10,7 @@ export type AuthenticatedRequest<
   user: User
 }
 
-export type TypedResponse<DTO = unknown> = Response<DTO | ErrorResponse>
+export type HydratedResponse<DTO = unknown> = Response<DTO | ErrorResponse>
 
 export interface Controller<
   User = unknown,
@@ -20,8 +20,8 @@ export interface Controller<
   DTO = unknown,
 > {
   handle: (
-    req: AuthenticatedRequest<User, Body, Params, Query>,
-    res: TypedResponse<DTO>,
+    req: HydratedRequest<User, Body, Params, Query>,
+    res: HydratedResponse<DTO>,
     next: NextFunction
   ) => Promise<DTO | void>
 }

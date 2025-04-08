@@ -3,9 +3,9 @@ import { UserDTO } from '../../application/dtos/user.dto'
 import { CreateUserUseCase } from '../../application/use-cases/create-user/create-user.use-case'
 import { UserType } from '../../domain/entities/user.entity'
 import {
-  AuthenticatedRequest,
+  HydratedRequest,
   Controller,
-  TypedResponse,
+  HydratedResponse,
 } from '../../shared/interfaces/controller.interface'
 
 export interface CreateUserDto {
@@ -19,8 +19,8 @@ export class CreateUserController
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
   async handle(
-    req: AuthenticatedRequest<unknown, CreateUserDto, unknown, unknown>,
-    res: TypedResponse<UserDTO>,
+    req: HydratedRequest<unknown, CreateUserDto, unknown, unknown>,
+    res: HydratedResponse<UserDTO>,
     next: NextFunction
   ): Promise<UserDTO | void> {
     try {
