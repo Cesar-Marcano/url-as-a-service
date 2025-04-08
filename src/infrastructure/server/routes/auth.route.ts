@@ -15,10 +15,14 @@ import { RefreshTokenUseCase } from '../../../application/use-cases/refresh-toke
 import { JwtService } from '../../services/token.service'
 import { ConfigService } from '../../config/main.config'
 
+// Route settings
 export const router = Router()
 export const name = 'auth'
 
+// Respositories
 const userRepository = new UserRepository(db)
+
+// External services
 const cacheService = new CacheService(cache)
 const configService = new ConfigService()
 
@@ -27,6 +31,7 @@ const tokenService = new JwtService(
   configService.getJwtRefreshSecret(),
 )
 
+// Use cases
 const createUserUseCase = new CreateUserUseCase(userRepository)
 const loginUserUseCase = new LoginUserUseCase(userRepository)
 const retrieveUserUseCase = new RetrieveUserUseCase([
@@ -38,6 +43,7 @@ const refreshTokenUseCase = new RefreshTokenUseCase(
   configService.getRefreshTokenDuration(),
 )
 
+// Controllers
 const createUserController = new CreateUserController(
   createUserUseCase,
   refreshTokenUseCase,
@@ -51,6 +57,7 @@ const retrieveUserController = new RetrieveUserController(
   cacheService,
 )
 
+// Route definitions
 router.post('/signup', async (req, res, next) => {
   await createUserController.handle(req as any, res, next)
 })
