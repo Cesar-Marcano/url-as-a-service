@@ -27,6 +27,10 @@ export class ConfigService {
     return getEnv<number>('PORT', 3000)
   }
 
+  getRedisUrl(): string {
+    return getEnv<string>('REDIS_URL')
+  }
+
   getNodeEnv(): NodeEnv {
     return getEnv<NodeEnv>(
       'NODE_ENV',
