@@ -1,7 +1,7 @@
 import ms from 'ms'
-import { TokenType } from '../../../domain/enums/token-type.enum'
-import { IJwtService } from '../../../domain/services/jwt.service'
-import { UseCase } from '../../interfaces/use-case.interface'
+import { TokenType } from '@domain/enums/token-type.enum'
+import { IJwtService } from '@domain/services/jwt.service'
+import { UseCase } from '@app/interfaces/use-case.interface'
 import { RefreshTokenUseCaseInput } from './refresh-token.input'
 
 export class RefreshTokenUseCase
