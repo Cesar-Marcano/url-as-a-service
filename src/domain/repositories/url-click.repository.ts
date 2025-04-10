@@ -1,4 +1,4 @@
-import { UrlClickEntity } from '../entities/url-click.entity'
+import { UrlClickEntity } from '@domain/entities/url-click.entity'
 
 export interface UrlClickFilter {
   fromIpAddress?: string

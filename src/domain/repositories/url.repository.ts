@@ -1,4 +1,4 @@
-import { UrlEntity } from "../entities/url.entity";
+import { UrlEntity } from "@domain/entities/url.entity";
 
 export interface IUrlRepository {
     findById(id: number): Promise<UrlEntity | null>;

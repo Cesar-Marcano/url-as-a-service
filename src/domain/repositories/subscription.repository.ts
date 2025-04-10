@@ -1,4 +1,4 @@
-import { SubscriptionEntity } from "../entities/subscription.entity"
+import { SubscriptionEntity } from "@domain/entities/subscription.entity"
 
 export interface ISubscriptionRepository {
   findById(id: number): Promise<SubscriptionEntity | null>

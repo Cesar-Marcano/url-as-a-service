@@ -1,4 +1,4 @@
-import { CurrencyEntity } from '../entities/currency.entity'
+import { CurrencyEntity } from '@domain/entities/currency.entity'
 
 export interface ICurrencyRepository {
   getCurrencyById(id: number): Promise<CurrencyEntity | null>

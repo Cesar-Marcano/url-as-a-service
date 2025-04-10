@@ -1,7 +1,7 @@
 import {
   SubscriptionRule,
   SubscriptionRuleEntity,
-} from '../entities/subscription-rule.entity'
+} from '@domain/entities/subscription-rule.entity'
 
 export interface ISubscriptionRuleRepository {
   findById(id: number): Promise<SubscriptionRuleEntity<SubscriptionRule> | null>
