@@ -1,6 +1,6 @@
 import { NextFunction } from 'express'
 import { UserDTO } from '../../application/dtos/user.dto'
-import { RetrieveUserInput } from '../../application/use-cases/retrieve-user/retrieve-user.input'
+import { RetrieveUserInput } from '../../application/use-cases/user/retrieve-user/retrieve-user.input'
 import {
   HydratedRequest,
   Controller,
