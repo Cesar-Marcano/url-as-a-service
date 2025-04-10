@@ -1,8 +1,8 @@
-import { IUserRepository } from '../../../domain/repositories/user.repository'
-import { UnauthorizedErrorException } from '../../../shared/errors/unauthorized.error'
-import { UserDTO } from '../../dtos/user.dto'
-import { UseCase } from '../../interfaces/use-case.interface'
-import { UserMapper } from '../../mappers/user.mapper'
+import { IUserRepository } from '@domain/repositories/user.repository'
+import { UnauthorizedErrorException } from '@shared/errors/unauthorized.error'
+import { UserDTO } from '@app/dtos/user.dto'
+import { UseCase } from '@app/interfaces/use-case.interface'
+import { UserMapper } from '@app/mappers/user.mapper'
 import { LoginUserInput } from './login-user.input'
 
 export class LoginUserUseCase implements UseCase<LoginUserInput, UserDTO> {
