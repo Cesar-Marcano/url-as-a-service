@@ -1,5 +1,5 @@
-import { UserDTO } from '../../dtos/user.dto'
-import { UseCase } from '../../interfaces/use-case.interface'
+import { UserDTO } from '@app/dtos/user.dto'
+import { UseCase } from '@app/interfaces/use-case.interface'
 import { RetrieveUserStrategy } from './reteive-user.strategy'
 import { RetrieveUserInput } from './retrieve-user.input'
 
