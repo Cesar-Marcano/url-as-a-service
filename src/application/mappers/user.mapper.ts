@@ -1,8 +1,8 @@
-import { UserEntity } from '../../domain/entities/user.entity'
-import { Email } from '../../domain/value-objects/email.value-object'
-import { Password } from '../../domain/value-objects/password.value-object'
-import { Username } from '../../domain/value-objects/username.value-object'
-import { UserDTO } from '../dtos/user.dto'
+import { UserEntity } from '@domain/entities/user.entity'
+import { Email } from '@domain/value-objects/email.value-object'
+import { Password } from '@domain/value-objects/password.value-object'
+import { Username } from '@domain/value-objects/username.value-object'
+import { UserDTO } from '@app/dtos/user.dto'
 
 export class UserMapper {
   static toDTO(user: UserEntity): UserDTO {
