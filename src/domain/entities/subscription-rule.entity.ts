@@ -1,4 +1,4 @@
-import { SubscriptionRuleStrategy } from '../interfaces/subscription-rule.interface'
+import { SubscriptionRuleStrategy } from '@domain/interfaces/subscription-rule.interface'
 import { NumberRuleStrategy } from '../strategies/number-rule.strategy'
 import { SubscriptionEntity } from './subscription.entity'
 
