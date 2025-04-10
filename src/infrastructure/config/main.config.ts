@@ -1,5 +1,5 @@
 import ms from 'ms'
-import { getEnv } from '../../shared/utils/getEnv'
+import { getEnv } from '@shared/utils/getEnv'
 
 type NodeEnv = 'development' | 'production' | 'test'
 

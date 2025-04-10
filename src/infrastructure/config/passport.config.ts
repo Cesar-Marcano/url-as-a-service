@@ -1,7 +1,7 @@
 import passport from 'passport'
-import { createAccessTokenStrategy } from '../strategies/jwt.strategy'
+import { createAccessTokenStrategy } from '@infra/strategies/jwt.strategy'
 import { ConfigService } from './main.config'
-import { createRefreshTokenStrategy } from '../strategies/refresh.strategy'
+import { createRefreshTokenStrategy } from '@infra/strategies/refresh.strategy'
 
 const configService = new ConfigService()
 

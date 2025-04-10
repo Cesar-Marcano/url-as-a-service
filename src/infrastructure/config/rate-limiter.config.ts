@@ -1,7 +1,7 @@
 import rateLimit from 'express-rate-limit'
-import { cache } from '../cache/redis.instance'
+import { cache } from '@infra/cache/redis.instance'
 import RedisStore, { RedisReply } from 'rate-limit-redis'
-import { logger } from '../../shared/utils/logger'
+import { logger } from '@shared/utils/logger'
 
 export const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

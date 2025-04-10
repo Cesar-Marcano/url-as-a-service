@@ -1,5 +1,5 @@
 import { Redis } from 'ioredis'
-import { ConfigService } from '../config/main.config'
+import { ConfigService } from '@infra/config/main.config'
 
 class RedisCache {
   private static instance: Redis

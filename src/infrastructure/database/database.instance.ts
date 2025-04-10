@@ -1,5 +1,5 @@
 import { Pool } from 'pg'
-import { ConfigService } from '../config/main.config'
+import { ConfigService } from '@infra/config/main.config'
 
 class Database {
   private static pool: Pool
