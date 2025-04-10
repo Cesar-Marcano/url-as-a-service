@@ -1,8 +1,8 @@
 import ms from 'ms'
-import { TokenType } from '../../../domain/enums/token-type.enum'
-import { IJwtService } from '../../../domain/services/jwt.service'
-import { UnauthorizedErrorException } from '../../../shared/errors/unauthorized.error'
-import { UseCase } from '../../interfaces/use-case.interface'
+import { TokenType } from '@domain/enums/token-type.enum'
+import { IJwtService } from '@domain/services/jwt.service'
+import { UnauthorizedErrorException } from '@shared/errors/unauthorized.error'
+import { UseCase } from '@app/interfaces/use-case.interface'
 import { AccessTokenUseCaseInput } from './access-token.input'
 
 export class AccessTokenUseCase
