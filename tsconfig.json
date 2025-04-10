@@ -33,7 +33,6 @@
     "allowUnusedLabels": false,
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["./src/*"],
       "@app/*": ["./src/application/*"],
       "@domain/*": ["./src/domain/*"],
       "@infra/*": ["./src/infrastructure/*"],

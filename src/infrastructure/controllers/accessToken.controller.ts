@@ -3,8 +3,8 @@ import {
   HydratedRequest,
   Controller,
   HydratedResponse,
-} from '../../shared/interfaces/controller.interface'
-import { AccessTokenUseCase } from '../../application/use-cases/access-token/access-token.use-case'
+} from '@shared/interfaces/controller.interface'
+import { AccessTokenUseCase } from '@app/use-cases/user/access-token/access-token.use-case' 
 
 export interface AccessTokenDto {
   refreshToken: string

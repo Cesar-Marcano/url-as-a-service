@@ -1,12 +1,12 @@
 import { NextFunction } from 'express'
-import { CreateUserUseCase } from '../../application/use-cases/create-user/create-user.use-case'
-import { UserType } from '../../domain/entities/user.entity'
+import { CreateUserUseCase } from '@app/use-cases/user/create-user/create-user.use-case'
+import { UserType } from '@domain/entities/user.entity'
 import {
   HydratedRequest,
   Controller,
   HydratedResponse,
-} from '../../shared/interfaces/controller.interface'
-import { RefreshTokenUseCase } from '../../application/use-cases/refresh-token/refresh-token.use-case'
+} from '@shared/interfaces/controller.interface'
+import { RefreshTokenUseCase } from '@app/use-cases/user/refresh-token/refresh-token.use-case'
 import { LoginResponse } from './loginUser.controller'
 
 export interface CreateUserDto {

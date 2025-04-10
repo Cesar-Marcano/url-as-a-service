@@ -1,12 +1,12 @@
 import { NextFunction } from 'express'
-import { LoginUserUseCase } from '../../application/use-cases/login-user/login-user.use-case'
+import { LoginUserUseCase } from '@app/use-cases/user/login-user/login-user.use-case'
 import {
   HydratedRequest,
   Controller,
   HydratedResponse,
-} from '../../shared/interfaces/controller.interface'
-import { RefreshTokenUseCase } from '../../application/use-cases/refresh-token/refresh-token.use-case'
-import { UserType } from '../../domain/entities/user.entity'
+} from '@shared/interfaces/controller.interface'
+import { RefreshTokenUseCase } from '@app/use-cases/user/refresh-token/refresh-token.use-case'
+import { UserType } from '@domain/entities/user.entity' 
 
 export interface LoginUserDto {
   email: string

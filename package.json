@@ -63,7 +63,6 @@
     "typescript": "^5.8.2"
   },
   "_moduleAliases": {
-    "@": "./dist",
     "@app/*": "./dist/application/",
     "@domain/*": "./dist/domain/",
     "@infra/*": "./dist/infrastructure/",

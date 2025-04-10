@@ -1,13 +1,13 @@
 import { NextFunction } from 'express'
-import { UserDTO } from '../../application/dtos/user.dto'
-import { RetrieveUserInput } from '../../application/use-cases/user/retrieve-user/retrieve-user.input'
+import { UserDTO } from '@app/dtos/user.dto' 
+import { RetrieveUserInput } from '@app/use-cases/user/retrieve-user/retrieve-user.input'
 import {
   HydratedRequest,
   Controller,
   HydratedResponse,
-} from '../../shared/interfaces/controller.interface'
-import { RetrieveUserUseCase } from '../../application/use-cases/retrieve-user/retrieve-user.use-case'
-import { CacheService } from '../services/cache.service'
+} from '@shared/interfaces/controller.interface'
+import { RetrieveUserUseCase } from '@app/use-cases/user/retrieve-user/retrieve-user.use-case' 
+import { CacheService } from '@infra/services/cache.service' 
 
 export class RetrieveUserController
   implements Controller<unknown, unknown, unknown, RetrieveUserInput, UserDTO>
