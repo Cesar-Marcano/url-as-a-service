@@ -1,4 +1,4 @@
-import { SubscriptionRuleStrategy } from "../interfaces/subscription-rule.interface";
+import { SubscriptionRuleStrategy } from "@domain/interfaces/subscription-rule.interface";
 
 export class NumberRuleStrategy implements SubscriptionRuleStrategy<number> {
   parse(value: string): number {
