@@ -1,4 +1,4 @@
-import { PaginationValueError } from "../../shared/errors/pagination-value.error"
+import { PaginationValueError } from "@shared/errors/pagination-value.error"
 
 export class PaginationOptions {
   constructor(
