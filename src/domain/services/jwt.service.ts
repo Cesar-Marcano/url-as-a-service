@@ -1,6 +1,6 @@
 import ms from 'ms'
-import { TokenType } from '../enums/token-type.enum'
-import { JwtPayload } from '../interfaces/jwt-payload.interface'
+import { TokenType } from '@domain/enums/token-type.enum'
+import { JwtPayload } from '@domain/interfaces/jwt-payload.interface'
 
 export interface IJwtService {
   sign(payload: JwtPayload, expiresIn: number | ms.StringValue): string
