@@ -1,4 +1,4 @@
-import { BaseError } from '../utils/base-error'
+import { BaseError } from '@shared/utils/base-error'
 
 export class InvalidFormatError extends BaseError {
   constructor(

@@ -1,5 +1,5 @@
-import { InvalidEnvError } from '../errors/invalid-env.error'
-import { EnvStrategy } from '../interfaces/env-strategy.interface'
+import { InvalidEnvError } from '@shared/errors/invalid-env.error'
+import { EnvStrategy } from '@shared/interfaces/env-strategy.interface'
 
 export class NumberEnvStrategy implements EnvStrategy {
   parse(value: string): number {

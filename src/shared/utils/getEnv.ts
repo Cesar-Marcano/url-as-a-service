@@ -1,5 +1,5 @@
-import { EnvContext } from '../context/env.context'
-import { MissingEnvError } from '../errors/missing-env.error'
+import { EnvContext } from '@shared/context/env.context'
+import { MissingEnvError } from '@shared/errors/missing-env.error'
 
 export function getEnv<T>(key: string, defaultValue?: T): T {
   const value = process.env[key]

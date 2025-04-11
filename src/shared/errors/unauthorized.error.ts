@@ -1,4 +1,4 @@
-import { BaseError } from '../utils/base-error'
+import { BaseError } from '@shared/utils/base-error'
 
 export class UnauthorizedErrorException extends BaseError {
   constructor(customMessage?: string) {

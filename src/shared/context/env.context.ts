@@ -1,8 +1,8 @@
-import { EnvStrategy } from '../interfaces/env-strategy.interface'
-import { BooleanEnvStrategy } from '../strategies/boolean-env.strategy'
-import { JsonEnvStrategy } from '../strategies/json-env.strategy'
-import { NumberEnvStrategy } from '../strategies/number-env.strategy'
-import { StringEnvStrategy } from '../strategies/string-env.strategy'
+import { EnvStrategy } from '@shared/interfaces/env-strategy.interface'
+import { BooleanEnvStrategy } from '@shared/strategies/boolean-env.strategy'
+import { JsonEnvStrategy } from '@shared/strategies/json-env.strategy'
+import { NumberEnvStrategy } from '@shared/strategies/number-env.strategy'
+import { StringEnvStrategy } from '@shared/strategies/string-env.strategy'
 
 export class EnvContext {
   private strategy: EnvStrategy

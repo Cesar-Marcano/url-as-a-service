@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { Pool } from 'pg'
-import { SqlQuery } from '../interfaces/sql-query.type'
+import { SqlQuery } from '@shared/interfaces/sql-query.type'
 import { logger } from './logger'
 
 export enum SqlRunnerScope {
