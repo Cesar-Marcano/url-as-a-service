@@ -1,6 +1,6 @@
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
-import { JwtPayload } from '../../domain/interfaces/jwt-payload.interface'
-import { TokenType } from '../../domain/enums/token-type.enum'
+import { JwtPayload } from '@domain/interfaces/jwt-payload.interface'
+import { TokenType } from '@domain/enums/token-type.enum'
 
 export const createRefreshTokenStrategy = (secret: string) =>
   new JwtStrategy(

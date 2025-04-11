@@ -1,6 +1,6 @@
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
-import { TokenType } from '../../domain/enums/token-type.enum'
-import { JwtPayload } from '../../domain/interfaces/jwt-payload.interface'
+import { TokenType } from '@domain/enums/token-type.enum'
+import { JwtPayload } from '@domain/interfaces/jwt-payload.interface'
 
 export const createAccessTokenStrategy = (secret: string) =>
   new JwtStrategy(
