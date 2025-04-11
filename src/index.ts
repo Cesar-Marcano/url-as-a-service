@@ -1,4 +1,4 @@
-import 'module-alias/register';
+import 'module-alias/register'
 import '@infra/config/env.config'
 
 import { runMigrations } from '@shared/utils/runMigrations'

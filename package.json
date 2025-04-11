@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "serve": "ts-node src/index.ts",
-    "start:dev": "nodemon src/index.ts --exec ts-node",
+    "serve": "ts-node -r tsconfig-paths/register src/index.ts",
+    "start:dev": "nodemon -r tsconfig-paths/register src/index.ts --exec ts-node",
     "test": "jest",
     "build": "tsc && pnpm run post:build",
     "post:build": "copyfiles -u 1 src/**/*.sql dist/",
@@ -39,6 +39,7 @@
     "passport-jwt": "^4.0.1",
     "pg": "^8.14.1",
     "rate-limit-redis": "^4.2.0",
+    "tsconfig-paths": "^4.2.0",
     "winston": "^3.17.0",
     "winston-daily-rotate-file": "^5.0.0"
   },
@@ -63,9 +64,9 @@
     "typescript": "^5.8.2"
   },
   "_moduleAliases": {
-    "@app/*": "./dist/application/",
-    "@domain/*": "./dist/domain/",
-    "@infra/*": "./dist/infrastructure/",
-    "@shared/*": "./dist/shared"
+    "@app": "dist/application",
+    "@domain": "dist/domain",
+    "@infra": "dist/infrastructure",
+    "@shared": "dist/shared"
   }
 }
