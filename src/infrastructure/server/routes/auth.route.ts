@@ -1,22 +1,23 @@
 import { Router } from 'express'
-import { CreateUserController } from '@infra/controllers/createUser.controller'
-import { CreateUserUseCase } from '@app/use-cases/user/create-user/create-user.use-case' 
+import { CreateUserController } from '@infra/controllers/auth/createUser/createUser.controller'
+import { CreateUserUseCase } from '@app/use-cases/user/create-user/create-user.use-case'
 import { UserRepository } from '@infra/repositories/user.repository'
 import { db } from '@infra/database/database.instance'
-import { RetrieveUserUseCase } from '@app/use-cases/user/retrieve-user/retrieve-user.use-case' 
-import { RetrieveUserController } from '@infra/controllers/retrieveUser.controller'
+import { RetrieveUserUseCase } from '@app/use-cases/user/retrieve-user/retrieve-user.use-case'
+import { RetrieveUserController } from '@infra/controllers/auth/retrieveUser/retrieveUser.controller'
 import { RetrieveUserByIdStrategy } from '@app/use-cases/user/retrieve-user/strategies/by-id.strategy'
 import { RetrieveUserByUsernameStrategy } from '@app/use-cases/user/retrieve-user/strategies/by-username.strategy'
-import { LoginUserUseCase } from '@app/use-cases/user/login-user/login-user.use-case' 
-import { LoginUserController } from '@infra/controllers/loginUser.controller'
-import { CacheService } from '@infra/services/cache.service' 
+import { LoginUserUseCase } from '@app/use-cases/user/login-user/login-user.use-case'
+import { LoginUserController } from '@infra/controllers/auth/loginUser/loginUser.controller'
+import { CacheService } from '@infra/services/cache.service'
 import { cache } from '@infra/cache/redis.instance'
-import { RefreshTokenUseCase } from '@app/use-cases/user/refresh-token/refresh-token.use-case' 
-import { JwtService } from '@infra/services/token.service' 
-import { ConfigService } from '@infra/config/main.config' 
+import { RefreshTokenUseCase } from '@app/use-cases/user/refresh-token/refresh-token.use-case'
+import { JwtService } from '@infra/services/token.service'
+import { ConfigService } from '@infra/config/main.config'
 import { AccessTokenUseCase } from '@app/use-cases/user/access-token/access-token.use-case'
-import { AccessTokenController } from '@infra/controllers/accessToken.controller' 
-import { jwtRefreshMiddleware } from '@shared/middlewares/auth.middleware' 
+import { AccessTokenController } from '@infra/controllers/auth/accessToken/accessToken.controller'
+import { jwtRefreshMiddleware } from '@shared/middlewares/auth.middleware'
+import { registerRoutes } from '@shared/utils/register-routes'
 
 // Route settings
 export const router = Router()
@@ -66,18 +67,26 @@ const retrieveUserController = new RetrieveUserController(
 const accessTokenController = new AccessTokenController(accessTokenUseCase)
 
 // Route definitions
-router.post('/signup', async (req, res, next) => {
-  await createUserController.handle(req as any, res, next)
-})
-
-router.post('/login', async (req, res, next) => {
-  await loginUserController.handle(req as any, res, next)
-})
-
-router.get('/getUser', async (req, res, next) => {
-  await retrieveUserController.handle(req as any, res, next)
-})
-
-router.post('/access-token', jwtRefreshMiddleware, async (req, res, next) => {
-  await accessTokenController.handle(req as any, res, next)
-})
+registerRoutes(router, [
+  {
+    path: '/signup',
+    controller: createUserController,
+    method: 'post',
+  },
+  {
+    path: '/login',
+    controller: loginUserController,
+    method: 'post',
+  },
+  {
+    path: '/getUser',
+    controller: retrieveUserController,
+    method: 'get',
+  },
+  {
+    path: '/access-token',
+    controller: accessTokenController,
+    method: 'post',
+    middlewares: [jwtRefreshMiddleware],
+  },
+])
