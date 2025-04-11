@@ -17,6 +17,7 @@ import { ConfigService } from '@infra/config/main.config'
 import { AccessTokenUseCase } from '@app/use-cases/user/access-token/access-token.use-case'
 import { AccessTokenController } from '@infra/controllers/auth/accessToken/accessToken.controller'
 import { jwtRefreshMiddleware } from '@shared/middlewares/auth.middleware'
+import { registerRoutes } from '@shared/utils/register-routes'
 
 // Route settings
 export const router = Router()
@@ -66,22 +67,26 @@ const retrieveUserController = new RetrieveUserController(
 const accessTokenController = new AccessTokenController(accessTokenUseCase)
 
 // Route definitions
-router.post('/signup', async (req: any, res, next) => {
-  await createUserController.handle({ req, res, next })
-})
-
-router.post('/login', async (req: any, res, next) => {
-  await loginUserController.handle({ req, res, next })
-})
-
-router.get('/getUser', async (req: any, res, next) => {
-  await retrieveUserController.handle({ req, res, next })
-})
-
-router.post(
-  '/access-token',
-  jwtRefreshMiddleware,
-  async (req: any, res, next) => {
-    await accessTokenController.handle({ req, res, next })
+registerRoutes(router, [
+  {
+    path: '/signup',
+    controller: createUserController,
+    method: 'post',
   },
-)
+  {
+    path: '/login',
+    controller: loginUserController,
+    method: 'post',
+  },
+  {
+    path: '/getUser',
+    controller: retrieveUserController,
+    method: 'get',
+  },
+  {
+    path: '/access-token',
+    controller: accessTokenController,
+    method: 'post',
+    middlewares: [jwtRefreshMiddleware],
+  },
+])
