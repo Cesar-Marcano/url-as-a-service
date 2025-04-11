@@ -1,32 +1,21 @@
-import { NextFunction } from 'express'
 import { CreateUserUseCase } from '@app/use-cases/user/create-user/create-user.use-case'
 import { UserType } from '@domain/entities/user.entity'
-import {
-  HydratedRequest,
-  Controller,
-  HydratedResponse,
-} from '@shared/interfaces/controller.interface'
+import { Controller } from '@shared/interfaces/controller.interface'
 import { RefreshTokenUseCase } from '@app/use-cases/user/refresh-token/refresh-token.use-case'
-import { LoginResponse } from './loginUser.controller'
+import { CreateUserContext } from './createUser.context'
 
 export interface CreateUserDto {
   email: string
   password: string
 }
 
-export class CreateUserController
-  implements Controller<unknown, CreateUserDto, unknown, unknown, LoginResponse>
-{
+export class CreateUserController implements Controller<CreateUserContext> {
   constructor(
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly refreshTokenUseCase: RefreshTokenUseCase,
   ) {}
 
-  async handle(
-    req: HydratedRequest<unknown, CreateUserDto, unknown, unknown>,
-    res: HydratedResponse<LoginResponse>,
-    next: NextFunction,
-  ): Promise<LoginResponse | void> {
+  async handle({ req, res, next }: CreateUserContext): Promise<void> {
     try {
       const { email, password } = req.body
       const user = await this.createUserUseCase.execute({
@@ -42,7 +31,6 @@ export class CreateUserController
       })
 
       res.status(201).json({ refreshToken })
-      return { refreshToken }
     } catch (error) {
       next(error)
     }
