@@ -1,16 +1,16 @@
 import { Pool } from 'pg'
-import { UserEntity } from '../../domain/entities/user.entity'
-import { IUserRepository } from '../../domain/repositories/user.repository'
-import { SqlQuery } from '../../shared/interfaces/sql-query.type'
-import { UserMapper } from '../../application/mappers/user.mapper'
+import { UserEntity } from '@domain/entities/user.entity'
+import { IUserRepository } from '@domain/repositories/user.repository'
+import { SqlQuery } from '@shared/interfaces/sql-query.type'
+import { UserMapper } from '@app/mappers/user.mapper'
 import {
   createSqlRunner,
   SqlRunnerScope,
-} from '../../shared/utils/createSqlRunner'
+} from '@shared/utils/createSqlRunner'
 import {
   NotFoundErrorException,
   NotFoundErrorExceptionScope,
-} from '../../shared/errors/not-found.error'
+} from '@shared/errors/not-found.error'
 
 export class UserRepository implements IUserRepository {
   // DQL
