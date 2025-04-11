@@ -1,4 +1,4 @@
-import { type UserType } from '../../../domain/entities/user.entity'
+import { type UserType } from '@domain/entities/user.entity'
 
 export interface CreateUserInput {
   email: string
