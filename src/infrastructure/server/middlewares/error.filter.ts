@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
-import { BaseError } from '../../../shared/utils/base-error'
-import { ConfigService } from '../../config/main.config'
+import { BaseError } from '@shared/utils/base-error'
+import { ConfigService } from '@infra/config/main.config'
 
 export const errorHandler = (configService: ConfigService) => (
   err: Error | BaseError,
