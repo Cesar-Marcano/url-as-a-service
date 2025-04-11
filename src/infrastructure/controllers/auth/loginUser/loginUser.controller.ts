@@ -1,12 +1,8 @@
-import { NextFunction } from 'express'
 import { LoginUserUseCase } from '@app/use-cases/user/login-user/login-user.use-case'
-import {
-  HydratedRequest,
-  Controller,
-  HydratedResponse,
-} from '@shared/interfaces/controller.interface'
+import { Controller } from '@shared/interfaces/controller.interface'
 import { RefreshTokenUseCase } from '@app/use-cases/user/refresh-token/refresh-token.use-case'
-import { UserType } from '@domain/entities/user.entity' 
+import { UserType } from '@domain/entities/user.entity'
+import { LoginUserContext } from './loginUser.context'
 
 export interface LoginUserDto {
   email: string
@@ -17,19 +13,13 @@ export interface LoginResponse {
   refreshToken: string
 }
 
-export class LoginUserController
-  implements Controller<unknown, LoginUserDto, unknown, unknown, LoginResponse>
-{
+export class LoginUserController implements Controller<LoginUserContext> {
   constructor(
     private readonly loginUserUseCase: LoginUserUseCase,
     private readonly refreshTokenUseCase: RefreshTokenUseCase,
   ) {}
 
-  async handle(
-    req: HydratedRequest<unknown, LoginUserDto, unknown, unknown>,
-    res: HydratedResponse<LoginResponse>,
-    next: NextFunction,
-  ): Promise<LoginResponse | void> {
+  async handle({ req, res, next }: LoginUserContext): Promise<void> {
     try {
       const { email, password } = req.body
       const user = await this.loginUserUseCase.execute({
@@ -46,8 +36,6 @@ export class LoginUserController
       res.status(200).json({
         refreshToken,
       })
-
-      return { refreshToken }
     } catch (error) {
       next(error)
     }
