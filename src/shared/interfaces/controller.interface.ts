@@ -12,16 +12,18 @@ export type HydratedRequest<
 
 export type HydratedResponse<DTO = unknown> = Response<DTO | ErrorResponse>
 
-export interface Controller<
+export interface HydratedContext<
   User = unknown,
   Body = unknown,
   Params = Record<string, string>,
   Query = Record<string, string | undefined>,
   DTO = unknown,
 > {
-  handle: (
-    req: HydratedRequest<User, Body, Params, Query>,
-    res: HydratedResponse<DTO>,
-    next: NextFunction
-  ) => Promise<DTO | void>
+  req: HydratedRequest<User, Body, Params, Query>
+  res: HydratedResponse<DTO>
+  next: NextFunction
+}
+
+export interface Controller<Ctx extends HydratedContext = HydratedContext> {
+  handle: (ctx: Ctx) => Promise<Ctx['res'] extends Response<infer D> ? D : void>
 }
