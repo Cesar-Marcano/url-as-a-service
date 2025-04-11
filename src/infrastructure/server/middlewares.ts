@@ -1,8 +1,8 @@
 import express, { Application } from 'express'
 import morgan from 'morgan'
 import helmet from 'helmet'
-import { passport } from '../config/passport.config'
-import { limiter } from '../config/rate-limiter.config'
+import { passport } from '@infra/config/passport.config'
+import { limiter } from '@infra/config/rate-limiter.config'
 
 export function setupMiddlewares(app: Application) {
   app.use(helmet())
