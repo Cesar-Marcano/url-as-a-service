@@ -1,4 +1,8 @@
-import 'module-alias/register'
+if (process.env['NODE_ENV'] === 'production') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('module-alias/register')
+}
+
 import '@infra/config/env.config'
 
 import { runMigrations } from '@shared/utils/runMigrations'
