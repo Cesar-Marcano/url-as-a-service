@@ -1,4 +1,4 @@
-import { UrlClickEntity } from './url-click.entity';
+import { Relation } from '@domain/value-objects/relation.value-object';
 import { UserEntity } from './user.entity'
 
 export class UrlEntity {
@@ -8,8 +8,7 @@ export class UrlEntity {
     public readonly originalUrl: string,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
-    public readonly author: UserEntity | null,
+    public readonly author: Relation<UserEntity> | null,
     public readonly expirationDate: Date | null,
-    public readonly clicks: UrlClickEntity[] | null = null,
   ) {}
 }
