@@ -1,16 +1,17 @@
 import { SubscriptionHistoryEntity, SubscriptionType } from './subscription-history.entity';
 import { UserEntity } from './user.entity';
 import { SubscriptionEntity } from './subscription.entity';
+import { Relation } from '@domain/value-objects/relation.value-object';
 
 describe('SubscriptionHistoryEntity', () => {
-  let user: UserEntity;
-  let subscription: SubscriptionEntity;
+  let user: Relation<UserEntity>;
+  let subscription: Relation<SubscriptionEntity>;
   let subscriptionHistory: SubscriptionHistoryEntity;
 
   beforeEach(() => {
-    user = {} as UserEntity;
+    user = new Relation<UserEntity>(0);
 
-    subscription = {} as SubscriptionEntity;
+    subscription = new Relation<SubscriptionEntity>(0);
 
     subscriptionHistory = new SubscriptionHistoryEntity(
       1,

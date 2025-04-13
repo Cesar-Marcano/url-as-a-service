@@ -1,6 +1,7 @@
 import { SubscriptionRuleStrategy } from '@domain/interfaces/subscription-rule.interface'
 import { NumberRuleStrategy } from '../strategies/number-rule.strategy'
 import { SubscriptionEntity } from './subscription.entity'
+import { Relation } from '@domain/value-objects/relation.value-object'
 
 export enum SubscriptionRule {
   MAX_URLS = 'max_urls',
@@ -22,7 +23,7 @@ export class SubscriptionRuleEntity<T extends SubscriptionRule> {
 
   constructor(
     public readonly id: number,
-    public readonly subscription: SubscriptionEntity | null,
+    public readonly subscription: Relation<SubscriptionEntity> | null,
     public readonly rule: T,
     public readonly value: string,
     public readonly createdAt: Date,

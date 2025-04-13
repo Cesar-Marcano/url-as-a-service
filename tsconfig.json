@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "incremental": true,
-
     "target": "es2016",
     "lib": ["ESNext"],
     "experimentalDecorators": true,
@@ -38,6 +36,5 @@
       "@infra/*": ["./src/infrastructure/*"],
       "@shared/*": ["./src/shared/*"]
     }
-  },
-  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
+  }
 }

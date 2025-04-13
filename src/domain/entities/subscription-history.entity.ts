@@ -1,3 +1,4 @@
+import { Relation } from '@domain/value-objects/relation.value-object'
 import { SubscriptionEntity } from './subscription.entity'
 import { UserEntity } from './user.entity'
 
@@ -10,8 +11,8 @@ export enum SubscriptionType {
 export class SubscriptionHistoryEntity {
   constructor(
     public readonly id: number,
-    public readonly user: UserEntity,
-    public readonly subscription: SubscriptionEntity | null,
+    public readonly user: Relation<UserEntity>,
+    public readonly subscription: Relation<SubscriptionEntity> | null,
     public readonly subscriptionType: SubscriptionType,
     public readonly startedAt: Date,
     public readonly canceledAt: Date | null,
