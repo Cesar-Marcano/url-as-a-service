@@ -26,8 +26,6 @@ export class UserMapper {
       new Password(row.password),
       new Date(row.created_at),
       new Date(row.updated_at),
-      row.urls ?? null,
-      row.subscription_history ?? null,
       row.user_type,
       row.is_email_confirmed ?? false,
       row.is_2fa_enabled ?? true,
