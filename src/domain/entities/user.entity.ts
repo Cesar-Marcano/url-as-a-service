@@ -1,5 +1,3 @@
-import { UrlEntity } from './url.entity'
-import { SubscriptionHistoryEntity } from './subscription-history.entity'
 import { Email } from '@domain/value-objects/email.value-object'
 import { Username } from '@domain/value-objects/username.value-object'
 import { Password } from '@domain/value-objects/password.value-object'
@@ -19,10 +17,6 @@ export class UserEntity {
     public readonly password: Password,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
-    public readonly urls: UrlEntity[] | null = null,
-    public readonly subscriptionHistory:
-      | SubscriptionHistoryEntity[]
-      | null = null,
     public readonly userType: UserType,
     public readonly isEmailConfirmed: boolean,
     public readonly is2FAEnabled: boolean,
@@ -42,8 +36,6 @@ export class UserEntity {
       password,
       now,
       now,
-      null,
-      null,
       userType,
       false,
       false,
