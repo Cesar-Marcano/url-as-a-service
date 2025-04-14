@@ -16,7 +16,7 @@ import { JwtService } from '@infra/services/token.service'
 import { ConfigService } from '@infra/config/main.config'
 import { AccessTokenUseCase } from '@app/use-cases/user/access-token/access-token.use-case'
 import { AccessTokenController } from '@infra/controllers/auth/accessToken/accessToken.controller'
-import { jwtRefreshMiddleware } from '@shared/middlewares/auth.middleware'
+import { jwtAuthMiddleware, jwtRefreshMiddleware } from '@shared/middlewares/auth.middleware'
 import { registerRoutes } from '@shared/utils/register-routes'
 
 // Route settings
@@ -82,7 +82,7 @@ registerRoutes(router, [
     path: '/getUser',
     controller: retrieveUserController,
     method: 'get',
-    middlewares: [jwtRefreshMiddleware],
+    middlewares: [jwtAuthMiddleware],
   },
   {
     path: '/access-token',
