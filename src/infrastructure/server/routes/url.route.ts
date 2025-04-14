@@ -12,6 +12,8 @@ import { DeleteUrlUseCase } from '@app/use-cases/url/delete-url/delete-url.use-c
 import { RetrieveUserUseCase } from '@app/use-cases/user/retrieve-user/retrieve-user.use-case'
 import { RetrieveUserByIdStrategy } from '@app/use-cases/user/retrieve-user/strategies/by-id.strategy'
 import { DeleteUrlController } from '@infra/controllers/urls/deleteUrl/deleteUrl.controller'
+import { RegisterClickUseCase } from '@app/use-cases/url-history/register-click/register-click.use-case'
+import { UrlClickRepository } from '@infra/repositories/url-click.repository'
 
 // Route settings
 export const router = Router()
@@ -19,6 +21,7 @@ export const name = 'url' // route prefix
 
 // Respositories
 const urlRepository = new UrlRepository(db)
+const urlClickRepository = new UrlClickRepository(db)
 const userRepository = new UserRepository(db)
 
 // External services
@@ -31,10 +34,17 @@ const deleteUrlUseCase = new DeleteUrlUseCase(urlRepository)
 const retrieveUserUseCase = new RetrieveUserUseCase([
   new RetrieveUserByIdStrategy(userRepository),
 ])
+const registerClickUseCase = new RegisterClickUseCase(
+  urlRepository,
+  urlClickRepository,
+)
 
 // Controllers
 const createUrlController = new CreateUrlController(createUrlUseCase)
-const getShortenUrlController = new GetShortenUrlController(retrieveUrlUseCase)
+const getShortenUrlController = new GetShortenUrlController(
+  retrieveUrlUseCase,
+  registerClickUseCase,
+)
 const deleteUrlController = new DeleteUrlController(
   deleteUrlUseCase,
   retrieveUserUseCase,
