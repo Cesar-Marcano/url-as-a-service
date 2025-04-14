@@ -33,6 +33,10 @@ export class UrlRepository implements IUrlRepository {
   async findBySlug(slug: string): Promise<UrlEntity | null> {
     const result = await this.findUrlBySlugQuery(this.db, [slug])
 
+    if (result.rowCount === 0) {
+      return null
+    }
+
     return UrlMapper.fromDB(result.rows[0])
   }
 
