@@ -1,6 +1,10 @@
 import { UrlMapper } from '@app/mappers/url.mapper'
 import { UrlEntity } from '@domain/entities/url.entity'
 import { IUrlRepository } from '@domain/repositories/url.repository'
+import {
+  NotFoundErrorException,
+  NotFoundErrorExceptionScope,
+} from '@shared/errors/not-found.error'
 import { SqlQuery } from '@shared/interfaces/sql-query.type'
 import { createSqlRunner, SqlRunnerScope } from '@shared/utils/createSqlRunner'
 import { Pool } from 'pg'
@@ -8,6 +12,7 @@ import { Pool } from 'pg'
 export class UrlRepository implements IUrlRepository {
   // DQL
   private readonly findUrlBySlugQuery: SqlQuery
+  private readonly findUrlByIdQuery: SqlQuery
 
   // DML
   private readonly createUrlQuery: SqlQuery
@@ -17,6 +22,10 @@ export class UrlRepository implements IUrlRepository {
     // DQL
     this.findUrlBySlugQuery = createSqlRunner(
       'urls/findUrlBySlug.sql',
+      SqlRunnerScope.Queries,
+    )
+    this.findUrlByIdQuery = createSqlRunner(
+      'urls/findUrlById.sql',
       SqlRunnerScope.Queries,
     )
 
@@ -31,8 +40,16 @@ export class UrlRepository implements IUrlRepository {
     )
   }
 
-  findById(_id: number): Promise<UrlEntity | null> {
-    throw new Error('Method not implemented.')
+  async findById(id: number): Promise<UrlEntity | null> {
+    const result = await this.findUrlByIdQuery(this.db, [id])
+
+    if (result.rowCount === 0)
+      throw new NotFoundErrorException(
+        NotFoundErrorExceptionScope.DATABASE,
+        'url',
+      )
+
+    return UrlMapper.fromDB(result.rows[0])
   }
 
   async findBySlug(slug: string): Promise<UrlEntity | null> {

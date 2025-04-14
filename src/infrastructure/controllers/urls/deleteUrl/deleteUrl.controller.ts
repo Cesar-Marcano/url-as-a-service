@@ -5,7 +5,7 @@ import { RetrieveUserUseCase } from '@app/use-cases/user/retrieve-user/retrieve-
 import { UnauthorizedErrorException } from '@shared/errors/unauthorized.error'
 import { UserType } from '@domain/entities/user.entity'
 
-export class DelteUrlController implements Controller<DeleteUrlContext> {
+export class DeleteUrlController implements Controller<DeleteUrlContext> {
   constructor(
     private readonly deleteUrlUseCase: DeleteUrlUseCase,
     private readonly retrieveUserUseCase: RetrieveUserUseCase,
@@ -29,7 +29,7 @@ export class DelteUrlController implements Controller<DeleteUrlContext> {
         },
       })
 
-      res.status(204)
+      res.status(204).send()
     } catch (error) {
       next(error)
     }

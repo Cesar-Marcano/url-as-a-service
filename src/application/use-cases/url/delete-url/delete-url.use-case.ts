@@ -24,7 +24,7 @@ export class DeleteUrlUseCase implements UseCase<DeleteUrlInput, boolean> {
       input.user.userType === UserType.ADMIN ||
       input.user.userType === UserType.MODERATOR
 
-    if (url.author!.id !== input.user.id || !canBypassAuthorCheck) {
+    if (url.author!.id !== input.user.id && !canBypassAuthorCheck) {
       throw new UnauthorizedErrorException(
         "You don't have enough permissions to delete an url that you don't own.",
       )

@@ -7,6 +7,11 @@ import { CreateUrlUseCase } from '@app/use-cases/url/create-url/create-url.use-c
 import { UrlRepository } from '@infra/repositories/url.repository'
 import { GetShortenUrlController } from '@infra/controllers/urls/getShortenUrl/getShortenUrl.controller'
 import { RetrieveUrlUseCase } from '@app/use-cases/url/retrieve-url/retrieve-url.use-case'
+import { UserRepository } from '@infra/repositories/user.repository'
+import { DeleteUrlUseCase } from '@app/use-cases/url/delete-url/delete-url.use-case'
+import { RetrieveUserUseCase } from '@app/use-cases/user/retrieve-user/retrieve-user.use-case'
+import { RetrieveUserByIdStrategy } from '@app/use-cases/user/retrieve-user/strategies/by-id.strategy'
+import { DeleteUrlController } from '@infra/controllers/urls/deleteUrl/deleteUrl.controller'
 
 // Route settings
 export const router = Router()
@@ -14,6 +19,7 @@ export const name = 'url' // route prefix
 
 // Respositories
 const urlRepository = new UrlRepository(db)
+const userRepository = new UserRepository(db)
 
 // External services
 // const cacheService = new CacheService(cache)
@@ -21,10 +27,18 @@ const urlRepository = new UrlRepository(db)
 // Use cases
 const createUrlUseCase = new CreateUrlUseCase(urlRepository)
 const retrieveUrlUseCase = new RetrieveUrlUseCase(urlRepository)
+const deleteUrlUseCase = new DeleteUrlUseCase(urlRepository)
+const retrieveUserUseCase = new RetrieveUserUseCase([
+  new RetrieveUserByIdStrategy(userRepository),
+])
 
 // Controllers
 const createUrlController = new CreateUrlController(createUrlUseCase)
 const getShortenUrlController = new GetShortenUrlController(retrieveUrlUseCase)
+const deleteUrlController = new DeleteUrlController(
+  deleteUrlUseCase,
+  retrieveUserUseCase,
+)
 
 // Route definitions
 registerRoutes(router, [
@@ -32,6 +46,12 @@ registerRoutes(router, [
     path: '/create',
     controller: createUrlController,
     method: 'post',
+    middlewares: [jwtAuthMiddleware],
+  },
+  {
+    path: '/delete/:urlId',
+    controller: deleteUrlController,
+    method: 'delete',
     middlewares: [jwtAuthMiddleware],
   },
   {
