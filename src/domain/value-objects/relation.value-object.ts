@@ -1,6 +1,6 @@
 export class Relation<T> {
   constructor(
-    public readonly id: string | number,
+    public readonly id: number,
     private readonly _data?: T,
   ) {}
 
