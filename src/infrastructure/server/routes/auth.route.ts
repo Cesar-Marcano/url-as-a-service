@@ -82,6 +82,7 @@ registerRoutes(router, [
     path: '/getUser',
     controller: retrieveUserController,
     method: 'get',
+    middlewares: [jwtRefreshMiddleware],
   },
   {
     path: '/access-token',
