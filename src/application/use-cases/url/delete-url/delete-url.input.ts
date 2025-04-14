@@ -1,6 +1,9 @@
-import { UserEntity } from '@domain/entities/user.entity'
+import { UserType } from '@domain/entities/user.entity'
 
 export interface DeleteUrlInput {
   urlId: number
-  user: UserEntity
+  user: {
+    id: number
+    userType: UserType
+  }
 }
