@@ -11,6 +11,7 @@ export class UrlRepository implements IUrlRepository {
 
   // DML
   private readonly createUrlQuery: SqlQuery
+  private readonly deleteUrlQuery: SqlQuery
 
   constructor(private readonly db: Pool) {
     // DQL
@@ -22,6 +23,10 @@ export class UrlRepository implements IUrlRepository {
     // DML
     this.createUrlQuery = createSqlRunner(
       'urls/createUrl.sql',
+      SqlRunnerScope.Queries,
+    )
+    this.deleteUrlQuery = createSqlRunner(
+      'urls/deleteUrl.sql',
       SqlRunnerScope.Queries,
     )
   }
@@ -59,8 +64,8 @@ export class UrlRepository implements IUrlRepository {
     throw new Error('Method not implemented.')
   }
 
-  delete(_id: number): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(id: number): Promise<void> {
+    this.deleteUrlQuery(this.db, [id])
   }
 
   getAll(): Promise<UrlEntity[]> {
