@@ -18,6 +18,8 @@ import { GeolocalizationUseCase } from '@app/use-cases/common/geolocalization/ge
 import { GeolocalizationService } from '@infra/services/geolocalization.service'
 import axios from 'axios'
 import { ConfigService } from '@infra/config/main.config'
+import { CacheService } from '@infra/services/cache.service'
+import { cache } from '@infra/cache/redis.instance'
 
 // Route settings
 export const router = Router()
@@ -29,7 +31,7 @@ const urlClickRepository = new UrlClickRepository(db)
 const userRepository = new UserRepository(db)
 
 // External services
-// const cacheService = new CacheService(cache)
+const cacheService = new CacheService(cache)
 const configService = new ConfigService()
 const geolocalizationService = new GeolocalizationService(
   axios,
@@ -59,6 +61,7 @@ const getShortenUrlController = new GetShortenUrlController(
   retrieveUrlUseCase,
   registerClickUseCase,
   geolocalizationUseCase,
+  cacheService,
 )
 const deleteUrlController = new DeleteUrlController(
   deleteUrlUseCase,
