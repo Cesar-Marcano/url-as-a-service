@@ -29,6 +29,8 @@ export class RegisterClickUseCase
       input.urlId,
       input.ipAddress,
       input.userAgent,
+      input.city,
+      input.country,
     )
 
     await this.urlClickRepository.registerClick(urlClick)
