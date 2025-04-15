@@ -1,25 +1,30 @@
-import { GetAnalyticsStrategy } from './get-analytics.strategy'
-
 export interface TotalClickCountByUrlsInput {
-  userId: number
+  totalClickCountInput: {
+    userId: number
+  }
 }
 
 export interface GetClickCountPerTimeInput {
-  timeUnit: 'day' | 'week' | 'month'
-  urlId: number
+  clickCountPerTimeInput: {
+    timeUnit: 'day' | 'week' | 'month'
+    urlId: number
+  }
 }
 
 export interface GetGeoAnalyticsInput {
-  urlId: number
+  geoAnalyticsInput: {
+    urlId: number
+  }
 }
 
 export interface GetUserAgentAnalyticsInput {
-  urlId: number
+  userAgentAnalyticsInput: {
+    urlId: number
+  }
 }
 
-export type GetAnalyticsInput = (
+export type GetAnalyticsInput =
   | TotalClickCountByUrlsInput
   | GetClickCountPerTimeInput
   | GetGeoAnalyticsInput
   | GetUserAgentAnalyticsInput
-) & { strategy: GetAnalyticsStrategy }

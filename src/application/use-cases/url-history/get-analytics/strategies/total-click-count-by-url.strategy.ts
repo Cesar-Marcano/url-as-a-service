@@ -12,11 +12,13 @@ export class TotalClickCountByUrlStrategy implements GetAnalyticsStrategy {
   constructor(private urlClickRepository: IUrlClickRepository) {}
 
   canHandle(input: GetAnalyticsInput): boolean {
-    return 'userId' in input
+    return 'totalClickCountInput' in input
   }
 
   async execute(input: GetAnalyticsInput): Promise<GetAnalyticsOutput> {
-    const { userId } = input as TotalClickCountByUrlsInput
+    const {
+      totalClickCountInput: { userId },
+    } = input as TotalClickCountByUrlsInput
 
     const data = await this.urlClickRepository.getTotalClickCountByUrls(userId)
 

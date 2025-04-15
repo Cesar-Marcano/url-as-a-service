@@ -1,15 +1,19 @@
 import { UseCase } from '@app/interfaces/use-case.interface'
 import { GetAnalyticsInput } from './get-analytics.input'
-import { GetAnalyticsOutput } from './get-analytics.strategy'
+import {
+  GetAnalyticsOutput,
+  GetAnalyticsStrategy,
+} from './get-analytics.strategy'
 
 export class GetAnalyticsUseCase
   implements UseCase<GetAnalyticsInput, GetAnalyticsOutput>
 {
-  constructor() {}
+  constructor(private readonly strategies: GetAnalyticsStrategy[]) {}
 
   async execute(input: GetAnalyticsInput): Promise<GetAnalyticsOutput> {
-    if (!input.strategy) throw new Error('No strategy found for given input')
+    const strategy = this.strategies.find((s) => s.canHandle(input))
+    if (!strategy) throw new Error('No strategy found for given input')
 
-    return input.strategy.execute(input)
+    return strategy.execute(input)
   }
 }

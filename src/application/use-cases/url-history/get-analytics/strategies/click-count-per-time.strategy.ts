@@ -12,11 +12,13 @@ export class ClickCountPerTimeStrategy implements GetAnalyticsStrategy {
   constructor(private urlClickRepository: IUrlClickRepository) {}
 
   canHandle(input: GetAnalyticsInput): boolean {
-    return 'timeUnit' in input && 'urlId' in input
+    return 'clickCountPerTimeInput' in input
   }
 
   async execute(input: GetAnalyticsInput): Promise<GetAnalyticsOutput> {
-    const { timeUnit, urlId } = input as GetClickCountPerTimeInput
+    const {
+      clickCountPerTimeInput: { timeUnit, urlId },
+    } = input as GetClickCountPerTimeInput
 
     const data = await this.urlClickRepository.getClickCountPerTime(
       timeUnit,

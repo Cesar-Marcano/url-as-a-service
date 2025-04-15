@@ -9,11 +9,13 @@ export class GeoAnalyticsStrategy implements GetAnalyticsStrategy {
   constructor(private urlClickRepository: IUrlClickRepository) {}
 
   canHandle(input: GetAnalyticsInput): boolean {
-    return 'urlId' in input
+    return 'geoAnalyticsInput' in input
   }
 
   async execute(input: GetAnalyticsInput): Promise<GetAnalyticsOutput> {
-    const { urlId } = input as GetGeoAnalyticsInput
+    const {
+      geoAnalyticsInput: { urlId },
+    } = input as GetGeoAnalyticsInput
 
     const data = await this.urlClickRepository.getGeoAnalytics(urlId)
 
