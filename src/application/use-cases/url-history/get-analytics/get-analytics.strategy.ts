@@ -6,15 +6,14 @@ import {
 } from '@domain/repositories/url-click.repository'
 import { type GetAnalyticsInput } from './get-analytics.input'
 
-export interface GetAnalyticsRetrieveUserStrategy {
+export type GetAnalyticsOutput =
+  | TotalClickCountByUrls
+  | ClickCountPerTime
+  | GeoAnalytics
+  | UserAgentAnalytics
+
+export interface GetAnalyticsStrategy {
   canHandle(input: GetAnalyticsInput): boolean
 
-  execute(
-    input: GetAnalyticsInput,
-  ): Promise<
-    | TotalClickCountByUrls
-    | ClickCountPerTime
-    | GeoAnalytics
-    | UserAgentAnalytics
-  >
+  execute(input: GetAnalyticsInput): Promise<GetAnalyticsOutput>
 }
