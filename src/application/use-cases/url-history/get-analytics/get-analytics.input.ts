@@ -1,3 +1,5 @@
+import { GetAnalyticsStrategy } from './get-analytics.strategy'
+
 export interface TotalClickCountByUrlsInput {
   userId: number
 }
@@ -15,8 +17,9 @@ export interface GetUserAgentAnalyticsInput {
   urlId: number
 }
 
-export type GetAnalyticsInput =
+export type GetAnalyticsInput = (
   | TotalClickCountByUrlsInput
   | GetClickCountPerTimeInput
   | GetGeoAnalyticsInput
   | GetUserAgentAnalyticsInput
+) & { strategy: GetAnalyticsStrategy }
