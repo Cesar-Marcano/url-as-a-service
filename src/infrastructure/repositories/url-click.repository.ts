@@ -37,4 +37,27 @@ export class UrlClickRepository implements IUrlClickRepository {
   ): Promise<number> {
     throw new Error('Method not implemented.')
   }
+
+  getTotalClickCountByUrls(_userId: number): Promise<Record<number, number>> {
+    throw new Error('Method not implemented.')
+  }
+
+  getClickCountPerTime(
+    _timeUnit: 'day' | 'week' | 'month',
+    _urlId: number,
+  ): Promise<Array<{ time: string; count: number }>> {
+    throw new Error('Method not implemented.')
+  }
+
+  getGeoAnalytics(
+    _urlId: number,
+  ): Promise<Array<{ location: string; count: number }>> {
+    throw new Error('Method not implemented.')
+  }
+
+  getUserAgentAnalytics(
+    _urlId: number,
+  ): Promise<Array<{ userAgent: string; count: number }>> {
+    throw new Error('Method not implemented.')
+  }
 }
