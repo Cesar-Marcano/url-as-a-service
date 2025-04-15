@@ -23,8 +23,8 @@ export class GetShortenUrlController
       const cached = await this.cacheService.get<{ data: string }>(slug)
 
       if (cached) {
-        res.setHeader('X-Cache', 'HIT')
         res.status(301).redirect(cached.data)
+        return
       }
 
       const data = await this.retrieveUrlCase.execute({
@@ -56,8 +56,6 @@ export class GetShortenUrlController
       })()
 
       this.cacheService.save(slug, { data: data.originalUrl }, 3600)
-
-      res.setHeader('X-Cache', 'MISS')
 
       res.status(301).redirect(data.originalUrl)
     } catch (error) {
