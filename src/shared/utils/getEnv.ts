@@ -1,5 +1,6 @@
 import { EnvContext } from '@shared/context/env.context'
 import { MissingEnvError } from '@shared/errors/missing-env.error'
+import { logger } from './logger'
 
 export function getEnv<T>(key: string, defaultValue?: T): T {
   const value = process.env[key]
@@ -8,8 +9,7 @@ export function getEnv<T>(key: string, defaultValue?: T): T {
       throw new MissingEnvError(key)
     }
 
-    // TODO: Emit a warning if the default value is used using a logger
-    // logger.warn(`Environment variable ${key} is not set. Using default value: ${defaultValue}`)
+    logger.warn(`Environment variable ${key} is not set. Using default value: ${defaultValue}`)
 
     return defaultValue
   }
