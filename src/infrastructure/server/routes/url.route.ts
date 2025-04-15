@@ -14,6 +14,10 @@ import { RetrieveUserByIdStrategy } from '@app/use-cases/user/retrieve-user/stra
 import { DeleteUrlController } from '@infra/controllers/urls/deleteUrl/deleteUrl.controller'
 import { RegisterClickUseCase } from '@app/use-cases/url-history/register-click/register-click.use-case'
 import { UrlClickRepository } from '@infra/repositories/url-click.repository'
+import { GeolocalizationUseCase } from '@app/use-cases/common/geolocalization/geolocalization.use-case'
+import { GeolocalizationService } from '@infra/services/geolocalization.service'
+import axios from 'axios'
+import { ConfigService } from '@infra/config/main.config'
 
 // Route settings
 export const router = Router()
@@ -26,6 +30,13 @@ const userRepository = new UserRepository(db)
 
 // External services
 // const cacheService = new CacheService(cache)
+const configService = new ConfigService()
+const geolocalizationService = new GeolocalizationService(
+  axios,
+  (ipAddress: string, apiKey: string) =>
+    `${configService.getIpInfoApiURI()}/${ipAddress}?token=${apiKey}`,
+  configService.getIpInfoApiToken(),
+)
 
 // Use cases
 const createUrlUseCase = new CreateUrlUseCase(urlRepository)
@@ -38,12 +49,16 @@ const registerClickUseCase = new RegisterClickUseCase(
   urlRepository,
   urlClickRepository,
 )
+const geolocalizationUseCase = new GeolocalizationUseCase(
+  geolocalizationService,
+)
 
 // Controllers
 const createUrlController = new CreateUrlController(createUrlUseCase)
 const getShortenUrlController = new GetShortenUrlController(
   retrieveUrlUseCase,
   registerClickUseCase,
+  geolocalizationUseCase,
 )
 const deleteUrlController = new DeleteUrlController(
   deleteUrlUseCase,

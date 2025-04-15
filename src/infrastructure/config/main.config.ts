@@ -53,6 +53,6 @@ export class ConfigService {
   }
 
   getIpInfoApiURI(): string {
-    return 'https://ipinfo.io/'
+    return 'https://ipinfo.io'
   }
 }
