@@ -1,16 +1,11 @@
 import { UrlClickEntity } from '@domain/entities/url-click.entity'
 
-export interface UrlClickFilter {
-  fromIpAddress?: string
-  fromUserAgent?: string
-  startDate?: Date
-  endDate?: Date
-}
-
 export interface IUrlClickRepository {
   registerClick(urlClick: UrlClickEntity): Promise<void>
 
-  getTotalClickCountByUrls(userId: number): Promise<Record<number, number>>
+  getTotalClickCountByUrls(
+    userId: number,
+  ): Promise<Array<{ url_id: number; click_count: number }>>
 
   getClickCountPerTime(
     timeUnit: 'day' | 'week' | 'month',
@@ -19,11 +14,9 @@ export interface IUrlClickRepository {
 
   getGeoAnalytics(
     urlId: number,
-  ): Promise<Array<{ location: string; count: number }>>
+  ): Promise<Array<{ country: string; city: string; count: number }>>
 
   getUserAgentAnalytics(
     urlId: number,
   ): Promise<Array<{ userAgent: string; count: number }>>
-
-  getClickCountByUrlId(urlId: number, filters?: UrlClickFilter): Promise<number>
 }

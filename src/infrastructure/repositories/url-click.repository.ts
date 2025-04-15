@@ -1,20 +1,37 @@
 import { UrlClickEntity } from '@domain/entities/url-click.entity'
-import {
-  IUrlClickRepository,
-  UrlClickFilter,
-} from '@domain/repositories/url-click.repository'
+import { IUrlClickRepository } from '@domain/repositories/url-click.repository'
 import { SqlQuery } from '@shared/interfaces/sql-query.type'
 import { createSqlRunner, SqlRunnerScope } from '@shared/utils/createSqlRunner'
 import { Pool } from 'pg'
 
 export class UrlClickRepository implements IUrlClickRepository {
   // DQL
+  private readonly getClickCountPerTimeQuery: SqlQuery
+  private readonly getGeoAnalyticsQuery: SqlQuery
+  private readonly getTotalClickCountByUrlsQuery: SqlQuery
+  private readonly getUserAgentAnalyticsQuery: SqlQuery
 
   // DML
   private readonly registerUrlClick: SqlQuery
 
   constructor(private readonly db: Pool) {
     // DQL
+    this.getClickCountPerTimeQuery = createSqlRunner(
+      'url_clicks/getClickCountPerTime.sql',
+      SqlRunnerScope.Queries,
+    )
+    this.getGeoAnalyticsQuery = createSqlRunner(
+      'url_clicks/getGeoAnalytics.sql',
+      SqlRunnerScope.Queries,
+    )
+    this.getTotalClickCountByUrlsQuery = createSqlRunner(
+      'url_clicks/getTotalClickCountByUrls.sql',
+      SqlRunnerScope.Queries,
+    )
+    this.getUserAgentAnalyticsQuery = createSqlRunner(
+      'url_clicks/getUserAgentAnalytics.sql',
+      SqlRunnerScope.Queries,
+    )
 
     // DML
     this.registerUrlClick = createSqlRunner(
@@ -33,33 +50,42 @@ export class UrlClickRepository implements IUrlClickRepository {
     ])
   }
 
-  getClickCountByUrlId(
-    _urlId: number,
-    _filters?: UrlClickFilter,
-  ): Promise<number> {
-    throw new Error('Method not implemented.')
+  async getTotalClickCountByUrls(
+    userId: number,
+  ): Promise<Array<{ url_id: number; click_count: number }>> {
+    const result = await this.getTotalClickCountByUrlsQuery(this.db, [userId])
+
+    return result.rows
   }
 
-  getTotalClickCountByUrls(_userId: number): Promise<Record<number, number>> {
-    throw new Error('Method not implemented.')
-  }
-
-  getClickCountPerTime(
-    _timeUnit: 'day' | 'week' | 'month',
-    _urlId: number,
+  async getClickCountPerTime(
+    timeUnit: 'day' | 'week' | 'month',
+    urlId: number,
   ): Promise<Array<{ time: string; count: number }>> {
-    throw new Error('Method not implemented.')
+    const result = await this.getClickCountPerTimeQuery(this.db, [
+      timeUnit,
+      urlId,
+    ])
+
+    return result.rows
   }
 
-  getGeoAnalytics(
-    _urlId: number,
-  ): Promise<Array<{ location: string; count: number }>> {
-    throw new Error('Method not implemented.')
+  async getGeoAnalytics(
+    urlId: number,
+  ): Promise<Array<{ country: string; city: string; count: number }>> {
+    const result = await this.getGeoAnalyticsQuery(this.db, [urlId])
+
+    return result.rows
   }
 
-  getUserAgentAnalytics(
-    _urlId: number,
+  async getUserAgentAnalytics(
+    urlId: number,
   ): Promise<Array<{ userAgent: string; count: number }>> {
-    throw new Error('Method not implemented.')
+    const result = await this.getUserAgentAnalyticsQuery(this.db, [urlId])
+
+    return result.rows.map((row) => ({
+      userAgent: row['user_agent'],
+      count: row['count'],
+    }))
   }
 }
