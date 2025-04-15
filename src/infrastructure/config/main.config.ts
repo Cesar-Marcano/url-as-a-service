@@ -47,4 +47,12 @@ export class ConfigService {
   isProduction(): boolean {
     return this.getNodeEnv() === 'production'
   }
+
+  getIpInfoApiToken(): string {
+    return getEnv<string>('IP_INFO_TOKEN')
+  }
+
+  getIpInfoApiURI(): string {
+    return 'https://ipinfo.io/'
+  }
 }
