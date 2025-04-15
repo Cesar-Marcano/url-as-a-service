@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import { JwtPayload } from '@domain/interfaces/jwt-payload.interface'
 import { TokenType } from '@domain/enums/token-type.enum'
 import ms from 'ms'
-import { IJwtService } from '@domain/services/jwt.service'
+import { IJwtService } from '@app/interfaces/jwt.service.interface'
 
 export class JwtService implements IJwtService {
   constructor(
