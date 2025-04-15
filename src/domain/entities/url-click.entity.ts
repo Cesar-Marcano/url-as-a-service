@@ -8,12 +8,16 @@ export class UrlClickEntity {
     public readonly clickTime: Date,
     public readonly fromIpAddress: string,
     public readonly fromUserAgent: string,
+    public readonly fromCountry?: string,
+    public readonly fromCity?: string,
   ) {}
 
   static create(
     urlId: number,
     fromIpAddress: string,
     fromUserAgent: string,
+    fromCountry?: string,
+    fromCity?: string,
   ): UrlClickEntity {
     return new UrlClickEntity(
       0,
@@ -21,6 +25,8 @@ export class UrlClickEntity {
       new Date(),
       fromIpAddress,
       fromUserAgent,
+      fromCountry,
+      fromCity,
     )
   }
 }
