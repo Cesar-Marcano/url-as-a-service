@@ -28,6 +28,8 @@ export class UrlClickRepository implements IUrlClickRepository {
       urlClick.url?.id,
       urlClick.fromUserAgent,
       urlClick.fromIpAddress,
+      urlClick.fromCountry,
+      urlClick.fromCity,
     ])
   }
 
